@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FLIXVERSE - HOME</title>
+    <link rel="stylesheet" href="CSS/Styleindex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="box1">
+        <img src="MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+    
+    <div class="nav">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="HTML/movies.html">Movies</a></li>
+        <li id="ws"><a href="HTML/webseries.html">Web Series</a></li>
+        <li><a href="HTML/kids.html">Kids</a></li>
+        <li><a href="HTML/wishlist.html">Wish List</a></li>
+        <li id="tv"><a href="HTML/tvshow.html">Tv Shows</a></li>
+        <li><a href="HTML/sports.html">Sports</a></li>
+      </ul>
+    </div>
+
+    <div class="search-box">
+    <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+    <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+    </div>
+
+    <div class="icon">
+        <button class="btn1" onclick="window.location.href='html/login.html'">Login</button>
+    </div>
+<div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+    <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+    <div class="menu-dropdown" id="menuDropdown">
+    <a href="HTML/contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+    <a href="HTML/aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+    <a href="#reviews-section" onclick="scrollToReviews()"><i class="fa-solid fa-star"></i> Review</a>
+    </div>
+</div>
+<!-- ........trending ticker starts............. -->
+<div class="trending-ticker">
+    <span class="ticker-label"><i class="fa-solid fa-fire"></i> TRENDING</span>
+    <div class="ticker-wrap">
+    <div class="ticker-track">
+        <span>Squid Game S3</span>
+        <span>•</span>
+        <span>King</span>
+        <span>•</span>
+        <span>Game of Thrones</span>
+        <span>•</span>
+        <span>Stranger Things</span>
+        <span>•</span>
+        <span>KGF Chapter 3</span>
+        <span>•</span>
+        <span>King</span>
+        <span>•</span>
+        <span>Squid Game S3</span>
+        <span>•</span>
+        <span>Avatar: Fire & Ash</span>
+        <span>•</span>
+        <span>Rajasahab</span>
+        <span>•</span>
+        <span>Wednesday S3</span>
+    </div>
+    </div>
+</div>
+<!-- ...............trending tickers ends............. -->
+<!-- ...........slide show starts............ -->
+ <div class="box2">
+  <div class="slideshow-container">
+   <div class="mySlides fade">
+    <div class="numbertext">1 / 3</div>
+    <video src="MEDIA/squid game.MP4" autoplay muted id="video1" width="100%" height="100%" style="object-fit:cover;display:block;"></video>
+    </div>
+
+    <div class="mySlides fade">
+     <div class="numbertext">2 / 3</div>
+     <video src="MEDIA/kungfu4.MP4" muted id="video2" width="100%" height="100%" style="object-fit:cover;display:block;"></video>
+    </div>
+
+    <div class="mySlides fade">
+     <div class="numbertext">3 / 3</div>
+     <video src="MEDIA/wednesday.MOV" muted id="video3" width="100%" height="100%" style="object-fit:cover;display:block;"></video>
+    </div>
+    <a class="prev" onclick="changeHeroSlide(-1)">&#10094;</a>
+    <a class="next" onclick="changeHeroSlide(1)">&#10095;</a>
+
+    <!-- Audio toggle button -->
+    <button class="slide-audio-btn" id="audioToggleBtn" onclick="toggleSlideAudio()" title="Toggle Audio">
+        <i class="fa-solid fa-volume-xmark" id="audioIcon"></i>
+    </button>
+ </div>
+
+<div class="slidecontent">
+    <div class="squid-text">
+    <h1 id="slide-title">S Q U I D <br> G A M E</h1>
+    <p id="slide-desc">Squid Game is a South Korean survival drama television series that has captivated audiences worldwide. </p>
+     <div class="mov-info-tag" id="slide-info">Thriller | Survival | Suspense | ⭐ 8.9</div>
+    <div class="buttons">
+    <button class="play" onclick="openTrailerModal()" style="background:linear-gradient(90deg,#ff2391,#ff69b4);border:none;color:white;box-shadow:0 0 16px rgba(255,35,145,0.6);">▶ TRAILER</button>
+    <button class="list"><a href="HTML/wishlist.html">+ MY LIST</a></button>
+    </div>
+                    <button class="list" onclick="addToWishlist()" id="plus">+</button>
+    </div>
+    </div>
+        <div class="hero-dots-center">
+            <span class="hero-dot active" onclick="goHeroSlide(1)"></span>
+            <span class="hero-dot" onclick="goHeroSlide(2)"></span>
+            <span class="hero-dot" onclick="goHeroSlide(3)"></span>
+        </div>
+    </div>
+    <!-- ..................Genre starts...............................  -->
+<div class="box3">BROWSE BY GENRE</div>
+
+<div class="box4">
+  <div class="genre-slides">
+    <button class="genre-slide">
+        <i class="fa-solid fa-bolt"></i>
+        <span><a href="HTML/movies.html">Action</a></span>
+    </button>
+    <button class="genre-slide">
+        <i class="fa-solid fa-face-grin-squint-tears"></i>
+        <span><a href="HTML/movies.html">Comedy</a></span>
+    </button>
+    <button class="genre-slide">
+        <i class="fa-solid fa-heart"></i>
+        <span><a href="HTML/movies.html">Romance</a></span>
+    </button>
+    <button class="genre-slide">
+        <i class="fa-solid fa-masks-theater"></i>
+        <span><a href="HTML/movies.html">Thriller</a></span>
+    </button>
+    <button class="genre-slide" onclick="scrollToHorror()">
+        <i class="fa-solid fa-ghost"></i>
+        <span>Horror</span>
+    </button>
+    <button class="genre-slide">
+        <i class="fa-solid fa-hat-wizard"></i>
+        <span><a href="HTML/movies.html">Fantasy</a></span>
+    </button>
+    <button class="genre-slide">
+        <i class="fa-solid fa-robot"></i>
+        <span><a href="HTML/movies.html">Sci-Fi</a></span>
+    </button>
+</div>
+</div>
+<!-- .............popular.starts............. -->
+<div class="box5">
+    <div class="section-row-header">
+        <h2>POPULAR MOVIES</h2>
+        <div class="section-nav-btns" id="navbtn">
+            <button class="section-nav-btn" onclick="scrollSection('posterScroll', -1)">&#10094;</button>
+            <button class="section-nav-btn" onclick="scrollSection('posterScroll', 1)">&#10095;</button>
+        </div>
+    </div>
+    <div class="poster-scroll" id="posterScroll">
+
+        <div class="poster-item">
+            <div class="poster1">
+                <img src="MEDIA/IMG_7596.JPG">
+                <span class="rankno1">1</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Dhurandhar','MEDIA/IMG_7596.JPG','8.2')">+</button>
+            </div>
+            <div class="movieinfo"><h3>Dhurandhar-2</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>8.2</div>
+            </div>
+        </div>
+
+        <div class="poster-item">
+            <div class="poster2">
+                <img src="MEDIA/sila.jpeg">
+                <span class="rankno">2</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Sila','MEDIA/sila.jpeg','8.4')">+</button>
+            </div>
+            <div class="movieinfo"><h3>Sila</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>8.4</div>
+            </div>
+        </div>
+
+        <div class="poster-item">
+            <div class="poster3">
+                <img src="MEDIA/toprated3.JPG">
+                <span class="rankno">3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('The Raja Saab','MEDIA/toprated3.JPG','8.7')">+</button>
+            </div>
+            <div class="movieinfo"><h3>The Raja Saab</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>8.7</div>
+            </div>
+        </div>
+
+        <div class="poster-item">
+            <div class="poster4">
+                <img src="MEDIA/pre2.JPG">
+                <span class="rankno">4</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Final Destination','MEDIA/pre2.JPG','9.0')">+</button>
+            </div>
+            <div class="movieinfo"><h3>Final Destination</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>9.0</div>
+            </div>
+        </div>
+
+        <div class="poster-item">
+            <div class="poster5">
+                <img src="MEDIA/toprated1.JPG">
+                <span class="rankno">5</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Animal','MEDIA/toprated1.JPG','8.8')">+</button>
+            </div>
+            <div class="movieinfo"><h3>Animal</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>8.8</div>
+            </div>
+        </div>
+
+        <div class="poster-item">
+            <div class="poster6">
+                <img src="MEDIA/pstr-img1.png">
+                <span class="rankno">6</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('KGF: Chapter-2','MEDIA/pstr-img1.png','8.8')">+</button>
+            </div>
+            <div class="movieinfo"><h3>KGF:Chapter-3</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>8.8</div>
+            </div>
+        </div>
+
+        <div class="poster-item">
+            <div class="poster7">
+                <img src="MEDIA/My Fault.jpeg">
+                <span class="rankno">7</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Pushpa 2','MEDIA/toprated2.JPG','8.6')">+</button>
+            </div>
+            <div class="movieinfo"><h3>My Fault</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>8.6</div>
+            </div>
+        </div>
+
+        <div class="poster-item">
+            <div class="poster8">
+                <img src="MEDIA/Kill.JPG">
+                <span class="rankno">8</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Stree 2','MEDIA/toprated4.JPG','8.5')">+</button>
+            </div>
+            <div class="movieinfo"><h3>Kill</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>8.5</div>
+            </div>
+        </div>
+
+        <div class="poster-item">
+            <div class="poster9">
+                <img src="MEDIA/Kantara.JPG">
+                <span class="rankno">9</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Jawan','MEDIA/toprated5.JPG','8.3')">+</button>
+            </div>
+            <div class="movieinfo"><h3>Kantara</h3>
+                <div class="rating"><span class="star"><i class="fa-solid fa-star" style="color:rgb(255,221,0);"></i></span>8.3</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ..........kids section starts............... -->
+<div class="box6">
+    <div class="section-row-header kids-header">
+        <h2>KIDS & FAMILY</h2>
+        <div class="section-nav-btns">
+            <button class="section-nav-btn pink" onclick="scrollSection('kidsScroll', -1)">&#10094;</button>
+            <button class="section-nav-btn pink" onclick="scrollSection('kidsScroll', 1)">&#10095;</button>
+        </div>
+    </div>
+    <div class="box6kids">
+        <div class="movposkid" id="kidsScroll">
+        <div class="kid-card">
+        <img src="MEDIA/kid9.JPG">
+        <button class="wishlist-plus-btn" onclick="addItemToWishlist('Enchanto','MEDIA/kid9.JPG','8.3')">+</button>
+        <div class="kid-info"><span>Enchanto</span><span class="kid-rating">⭐ 8.3</span></div>
+        </div>
+        <div class="kid-card">
+        <img src="MEDIA/kid1 (3).JPG">
+        <button class="wishlist-plus-btn" onclick="addItemToWishlist('Bhootnath','MEDIA/kid1 (3).JPG','8.5')">+</button>
+                <div class="kid-info"><span>Bhootnath</span><span class="kid-rating">⭐ 8.5</span></div>
+            </div>
+            <div class="kid-card">
+                <img src="MEDIA/nemo.jpeg">
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Finding Nemo','MEDIA/nemo.jpeg','8.1')">+</button>
+                <div class="kid-info"><span>Finding Nemo</span><span class="kid-rating">⭐ 8.1</span></div>
+            </div>
+            <div class="kid-card">
+                <img src="MEDIA/kid1 (4).JPG">
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Zootopia','MEDIA/kid1 (4).JPG','7.4')">+</button>
+                <div class="kid-info"><span>Zootopia</span><span class="kid-rating">⭐ 7.4</span></div>
+            </div>
+            <div class="kid-card">
+                <img src="MEDIA/dora.jpeg">
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Tangled','MEDIA/dora.jpeg','7.6')">+</button>
+                <div class="kid-info"><span>Dora The Explorer</span><span class="kid-rating">⭐ 7.6</span></div>
+            </div>
+            <div class="kid-card">
+                <img src="MEDIA/kid1 (6).JPG">
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Taare Zameen Par','MEDIA/kid1 (6).JPG','8.4')">+</button>
+                <div class="kid-info"><span>Taare Zameen Par</span><span class="kid-rating">⭐ 8.4</span></div>
+            </div>
+            <div class="kid-card">
+                <img src="MEDIA/kid1 (1).JPG">
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('DDLJ','MEDIA/kid1 (1).JPG','8.2')">+</button>
+                <div class="kid-info"><span>DDLJ</span><span class="kid-rating">⭐ 8.2</span></div>
+            </div>
+            <div class="kid-card">
+                <img src="MEDIA/IMG_7895.JPG.jpeg">
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('3 Idiots','MEDIA/IMG_7895.JPG.jpeg','8.1')">+</button>
+                <div class="kid-info"><span>3 Idiots</span><span class="kid-rating">⭐ 8.1</span></div>
+            </div>
+            <div class="kid-card">
+                <img src="MEDIA/doremon.jpeg">
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Doraemon','MEDIA/doremon.jpeg','8.3')">+</button>
+                <div class="kid-info"><span>Doraemon</span><span class="kid-rating">⭐ 8.3</span></div>
+            </div>
+            <div class="kid-card">
+                <img src="MEDIA/wsh 4.JPG">
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Dragon Ball Z','MEDIA/goku.jpeg','8.6')">+</button>
+                <div class="kid-info"><span>The Lion King</span><span class="kid-rating">⭐ 8.6</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ...................premiumbarstarts.................... -->
+<div class="box7">
+    <div class="premium-left">
+        <div class="premium-badge"><i class="fa-solid fa-crown"></i> PREMIUM</div>
+        <h2 class="premium-title">Unlock the Full Experience</h2>
+        <ul class="premium-offers">
+            <li><i class="fa-solid fa-check"></i> Ad-free streaming on all devices</li>
+            <li id="pregap"><i class="fa-solid fa-check"></i> 4K Ultra HD + Dolby Atmos</li>
+            <li><i class="fa-solid fa-check"></i> Download & watch offline</li>
+            <li><i class="fa-solid fa-check"></i> Access to exclusive originals</li>
+        </ul>
+        <div class="premium-price">Starting at <span>₹149 / month</span></div>
+        <button class="premium-cta" onclick="window.location.href='HTML/premium.html'">Get Premium Now</button>
+    </div>
+    <div class="premium-right">
+        <img src="MEDIA/series1.JPG" alt="Premium Show 1" class="premium-img">
+        <img src="MEDIA/premium1.JPG" alt="Premium Show 2" class="premium-img">
+    </div>
+</div>
+<!-- .............................premiumends............................ -->
+<!-- ............................romance sec starts........................... -->
+<div class="romance-row-section">
+    <div class="romance-row-header">
+        <h2 class="romance-row-title">ROMANCE</h2>
+        <div class="romance-row-btns">
+            <button class="romance-scroll-btn" onclick="scrollRomanceRow(-1)">&#10094;</button>
+            <button class="romance-scroll-btn" onclick="scrollRomanceRow(1)">&#10095;</button>
+        </div>
+    </div>
+    <div class="romance-row-track" id="romanceRowTrack">
+
+        <div class="rom-card" onclick="playRomVideo('MEDIA/saiyaara vid.mp4','MEDIA/wsh 3.JPG')">
+            <img src="MEDIA/wsh 3.JPG" alt="Saiyaara">
+            <div class="rom-overlay"><i class="fa-solid fa-play"></i></div>
+            <div class="rom-info"><span class="rom-title">Saiyaara</span>
+            <span class="rom-genre">Romance · Drama</span></div>
+        </div>
+
+        <div class="rom-card" onclick="playRomVideo('MEDIA/twilight video.mp4','MEDIA/rom2.JPG')">
+            <img src="MEDIA/rom2.JPG" alt="Twilight">
+            <div class="rom-overlay"><i class="fa-solid fa-play"></i></div>
+            <div class="rom-info"><span class="rom-title">Twilight</span><span class="rom-genre">Romance · Fantasy</span></div>
+        </div>
+
+        <div class="rom-card" onclick="playRomVideo('MEDIA/stk vid.mp4','MEDIA/f1 (4).JPG')">
+            <img src="MEDIA/f1 (4).JPG" alt="Sanam Teri Kasam">
+            <div class="rom-overlay"><i class="fa-solid fa-play"></i></div>
+            <div class="rom-info"><span class="rom-title">Sanam Teri Kasam</span>
+            <span class="rom-genre">Romance · Drama</span></div>
+        </div>
+
+        <div class="rom-card" onclick="playRomVideo('MEDIA/vivah vid.mp4','MEDIA/f1 (6).JPG')">
+            <img src="MEDIA/f1 (6).JPG" alt="Vivah">
+            <div class="rom-overlay"><i class="fa-solid fa-play"></i></div>
+            <div class="rom-info"><span class="rom-title">Vivah</span>
+            <span class="rom-genre">Romance · Musical</span></div>
+        </div>
+
+        <div class="rom-card" onclick="playRomVideo('MEDIA/rv vid.mp4','MEDIA/rom1.jpeg')">
+            <img src="MEDIA/rom1.jpeg" alt="Saiyaara">
+            <div class="rom-overlay"><i class="fa-solid fa-play"></i></div>
+            <div class="rom-info"><span class="rom-title">Ramaiya Vastavaiya</span><span class="rom-genre">Romance · Bollywood</span></div>
+        </div>
+
+        <div class="rom-card" onclick="playRomVideo('MEDIA/titanic.mp4','MEDIA/movies6.JPG')">
+            <img src="MEDIA/movies6.JPG" alt="Titanic">
+            <div class="rom-overlay"><i class="fa-solid fa-play"></i></div>
+            <div class="rom-info"><span class="rom-title">Titanic</span><span class="rom-genre">Romance · Classic</span></div>
+        </div>
+
+        <div class="rom-card" onclick="playRomVideo('MEDIA/TANGLED.mp4','MEDIA/kid1 (5).JPG')">
+            <img src="MEDIA/kid1 (5).JPG" alt="Tangled">
+            <div class="rom-overlay"><i class="fa-solid fa-play"></i></div>
+            <div class="rom-info"><span class="rom-title">Tangled</span><span class="rom-genre">Romance · Fantasy</span></div>
+        </div>
+
+        <div class="rom-card" onclick="playRomVideo('MEDIA/twilight.mp4','MEDIA/rom7.jpeg')">
+            <img src="MEDIA/rom7.jpeg" alt="Romeo">
+            <div class="rom-overlay"><i class="fa-solid fa-play"></i></div>
+            <div class="rom-info"><span class="rom-title">Romeo &amp; Juliet</span><span class="rom-genre">Romance · Animation</span></div>
+        </div>
+
+    </div>
+</div>
+<!--  .............romance row ends............... -->
+<!-- .............horror starts.................. -->
+    <section class="movies" id="horror-section">
+        <h2 class="section-title">HORROR</h2>
+
+        <div class="horror-slider-wrapper">
+            <button class="horror-prev" onclick="scrollHorror(-1)">&#10094;</button>
+
+            <div class="movie-row" id="horrorRow">
+                <div class="movie-card" data-rank="1">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/ho1.JPG" alt="THE NUN" class="poster">
+                        <div class="movie-tag">CONTINUE WATCHING</div>
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">THE NUN</span>
+                        <span class="movie-rating">⭐ 9.3</span>
+                    </div>
+                </div>
+
+                <div class="movie-card" data-rank="2">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/ho2.JPG" alt="THE CONJURING" class="poster">
+                        <div class="movie-tag">POPULAR</div>
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">THE CONJURING</span>
+                        <span class="movie-rating">⭐ 9.3</span>
+                    </div>
+                </div>
+
+                <div class="movie-card" data-rank="3">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/ho3.JPG" alt="THE EXORCIST">
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">THE EXORCIST</span>
+                        <span class="movie-rating">⭐ 9.3</span>
+                    </div>
+                </div>
+
+                <div class="movie-card" data-rank="4">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/ho4.JPG" alt="SINISTER II">
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">SINISTER II</span>
+                        <span class="movie-rating">⭐ 8.3</span>
+                    </div>
+                </div>
+
+                <div class="movie-card" data-rank="5">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/ho5.JPG" alt="ANNABELLE">
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">ANNABELLE</span>
+                        <span class="movie-rating">⭐ 9.3</span>
+                    </div>
+                </div>
+
+<div class="movie-card" data-rank="6">
+    <div class="poster-container" onclick="triggerHorror(this)">
+    <img src="MEDIA/ho6.JPG" alt="THE MONSTER HOUSE">
+        <div class="horror-overlay"></div>
+    </div>
+    <div class="movie-info">
+    <span class="movie-title">THE MONSTER HOUSE</span>
+        <span class="movie-rating">⭐ 8.3</span>
+        </div>
+    </div>
+
+                <div class="movie-card" data-rank="7">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/ho7.JPG" alt="IT">
+                        <div class="movie-tag">POPULAR</div>
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">TAROT</span>
+                        <span class="movie-rating">⭐ 7.3</span>
+                    </div>
+                </div>
+
+                <div class="movie-card" data-rank="8">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/ho8.JPG" alt="HEREDITARY">
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">IMAGINARY</span>
+                        <span class="movie-rating">⭐ 7.3</span>
+                    </div>
+                </div>
+
+                <div class="movie-card" data-rank="9">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/kid1 (2).JPG" alt="GET OUT">
+                        <div class="movie-tag">Drama</div>
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">Stree</span>
+                        <span class="movie-rating">⭐ 7.7</span>
+                    </div>
+                </div>
+
+                <div class="movie-card" data-rank="10">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/ho10.jpeg" alt="A QUIET PLACE">
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">A QUIET PLACE-II</span>
+                        <span class="movie-rating">⭐ 7.5</span>
+                    </div>
+                </div>
+
+                <div class="movie-card" data-rank="11">
+                    <div class="poster-container" onclick="triggerHorror(this)">
+                        <img src="MEDIA/HO11.jpeg" alt="MIDSOMMAR">
+                        <div class="horror-overlay"></div>
+                    </div>
+                    <div class="movie-info">
+                        <span class="movie-title">DEAD SILENCE</span>
+                        <span class="movie-rating">⭐ 7.1</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="horror-next" onclick="scrollHorror(1)">&#10095;</button>
+        </div>
+    </section>
+<!-- ...............horror ends..................... -->
+
+<!-- ══════════ REVIEWS SECTION ══════════ -->
+<section class="reviews-section" id="reviews-section">
+    <div class="reviews-header">
+        <h2><i class="fa-solid fa-comments"></i> REVIEW</h2>
+    </div>
+    <div class="reviews-track-wrap">
+        <div class="reviews-track">
+
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"FlixVerse has completely replaced my other streaming apps. The collection is insane and the UI is so smooth!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Aryan M.</span></div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"The horror section alone is worth it. Annabelle, The Conjuring, The Nun — all in one place. Love it!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Priya S.</span></div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">★★★★☆</div>
+                <p class="review-text">"Great platform with a beautiful design. The slideshow on the homepage is super cinematic. Highly recommend!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Rahul K.</span></div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"I watch Squid Game and Wednesday here every week. The video quality and experience is top notch!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Sneha T.</span></div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">★★★★☆</div>
+                <p class="review-text">"Kids section is amazing! My children love Doraemon and Tom & Jerry. Perfect for the whole family."</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Meera R.</span></div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"The romance collection brought back so many memories. Titanic, Twilight — absolute classics. 10/10!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Kabir D.</span></div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Premium plan is totally worth it. Ad-free, 4K quality, and new content drops every week. Best decision ever!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Nisha P.</span></div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">★★★★☆</div>
+                <p class="review-text">"FlixVerse feels like Netflix but with a much cooler vibe. The dark theme and glowing effects are so aesthetic!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Dev A.</span></div>
+            </div>
+
+            <!-- Duplicate set for seamless loop -->
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"FlixVerse has completely replaced my other streaming apps. The collection is insane and the UI is so smooth!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Aryan M.</span></div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"The horror section alone is worth it. Annabelle, The Conjuring, The Nun — all in one place. Love it!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Priya S.</span></div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★☆</div>
+                <p class="review-text">"Great platform with a beautiful design. The slideshow on the homepage is super cinematic. Highly recommend!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Rahul K.</span></div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"I watch Squid Game and Wednesday here every week. The video quality and experience is top notch!"</p>
+                <div class="review-author"><img src="MEDIA/logo1.png" alt=""><span>Sneha T.</span></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ── Romance Video Modal ── -->
+<div id="romModal" onclick="if(event.target===this)closeRomVideo()" style="
+    display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(6,0,16,0.93);backdrop-filter:blur(12px);
+    align-items:center;justify-content:center;">
+    <div style="position:relative;width:min(880px,94vw);border-radius:16px;overflow:hidden;
+        box-shadow:0 0 60px rgba(255,35,145,0.3),0 0 30px rgba(33,150,243,0.2);
+        border:1px solid rgba(255,35,145,0.35);">
+        <!-- Thumbnail header with cross -->
+        <div id="romModalHeader" style="
+            position:relative;height:120px;background-size:cover;background-position:center;
+            display:flex;align-items:flex-start;justify-content:flex-end;padding:12px;">
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,0,16,0.5),rgba(6,0,16,0.85));"></div>
+            <button onclick="closeRomVideo()" style="
+                position:relative;z-index:2;background:rgba(255,35,145,0.9);border:none;
+                color:white;width:38px;height:38px;border-radius:50%;font-size:17px;
+                cursor:pointer;display:flex;align-items:center;justify-content:center;
+                box-shadow:0 0 14px #ff2391;transition:transform 0.2s,background 0.2s;"
+                onmouseover="this.style.background='#ff2391';this.style.transform='scale(1.15)'"
+                onmouseout="this.style.background='rgba(255,35,145,0.9)';this.style.transform='scale(1)'">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <video id="romVideoPlayer" controls autoplay
+            style="width:100%;display:block;background:#000;max-height:72vh;">
+        </video>
+    </div>
+</div>
+
+<script src="JS/Script.js"></script>
+
+<!-- ── Trailer Modal ── -->
+<div id="trailerModal" onclick="if(event.target===this)closeTrailer()" style="
+    display:none;position:fixed;inset:0;z-index:10000;
+    background:rgba(6,0,16,0.95);backdrop-filter:blur(14px);
+    align-items:center;justify-content:center;">
+    <div style="position:relative;width:min(900px,95vw);border-radius:16px;overflow:hidden;
+        box-shadow:0 0 60px rgba(255,35,145,0.4);border:1px solid rgba(255,35,145,0.4);">
+        <button onclick="closeTrailer()" style="
+            position:absolute;top:12px;right:12px;z-index:2;
+            background:rgba(255,35,145,0.9);border:none;color:white;
+            width:38px;height:38px;border-radius:50%;font-size:17px;
+            cursor:pointer;display:flex;align-items:center;justify-content:center;
+            box-shadow:0 0 14px #ff2391;">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <video id="trailerPlayer" controls autoplay
+            style="width:100%;display:block;background:#000;max-height:75vh;">
+        </video>
+    </div>
+</div>
+
+<!-- ══════════ SITE FOOTER ══════════ -->
+<footer class="site-footer">
+ <div class="footer-grid">
+  <div class="footer-brand">
+    <div class="footer-logo">
+        <img src="MEDIA/logo1.png" class="logof">
+     <span class="flix">FLIX</span> <span>VERSE</span>
+    </div>
+    <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+    <div class="footer-socials">
+    <a href="https://www.instagram.com." class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://x.com" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://www.facebook.com" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+    </div>
+   </div>
+
+<div class="footer-col">
+ <h4>Browse</h4>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="HTML/movies.html">Movies</a></li>
+                <li><a href="HTML/webseries.html">Web Series</a></li>
+                <li><a href="HTML/tvshow.html">TV Shows</a></li>
+                <li><a href="HTML/wishlist.html">My List</a></li>
+            </ul>
+</div>
+<div class="footer-col">
+  <h4>Genres</h4>
+            <ul>
+                <li><a href="#horror-section">Horror</a></li>
+                <li><a href="HTML/movies.html">Action</a></li>
+                <li><a href="HTML/movies.html">Romance</a></li>
+                <li><a href="HTML/movies.html">Thriller</a></li>
+                <li><a href="HTML/movies.html">Sci-Fi</a></li>
+            </ul>
+</div>
+<div class="footer-col">
+ <h4>Company</h4>
+            <ul>
+                <li><a href="HTML/premium.html">Premium</a></li>
+                <li><a href="HTML/contact.html">Contact Us</a></li>
+                <li><a href="HTML/privacy.html">Privacy Policy</a></li>
+                <li><a href="HTML/terms.html">Terms of Use</a></li>
+                <li><a href="HTML/privacy.html">Help Center</a></li>
+            </ul>
+</div>
+</div>
+<hr class="footer-divider">
+<div class="footer-bottom">
+ <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+    <div class="footer-bottom-links">
+            <a href="HTML/privacy.html">Privacy</a>
+            <a href="HTML/terms.html">Terms</a>
+            <a href="HTML/contact.html">Contact</a>
+    </div>
+</div>
+</footer>
+</body>
+</html>
