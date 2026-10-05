@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - FLIXVERSE</title>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: #07000f; color: white; min-height: 100vh; overflow-x: hidden; }
+
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(130px); opacity: 0.15; pointer-events: none; z-index: 0; }
+        .orb1 { width: 600px; height: 600px; background: #ff2391; top: -150px; left: -150px; }
+        .orb2 { width: 500px; height: 500px; background: #2196f3; bottom: -100px; right: -100px; }
+
+        .page-hero {
+            position: relative; z-index: 1;
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .page-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,35,145,0.1); border: 1px solid rgba(255,35,145,0.35);
+            border-radius: 20px; padding: 6px 18px;
+            font-size: 11px; font-weight: 700; color: #ff69b4;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px;
+        }
+        .page-hero h1 {
+            font-size: clamp(28px, 4vw, 48px); font-weight: 800;
+            background: linear-gradient(135deg, #fff 30%, #ff69b4 70%, #2196f3 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 12px;
+        }
+        .page-hero p { color: #777; font-size: 14px; }
+
+        .doc-wrap {
+            position: relative; z-index: 1;
+            max-width: 1100px; margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .doc-section {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 24px 24px 24px 28px;
+            transition: border-color 0.3s;
+        }
+        .doc-section:hover { border-color: rgba(255,35,145,0.25); }
+
+        .doc-section h2 {
+            font-size: 15px; font-weight: 800;
+            color: #ff69b4; letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .doc-section h2 i { color: #2196f3; font-size: 14px; }
+
+        .doc-section p, .doc-section li {
+            font-size: 13px; color: #999; line-height: 1.6;
+        }
+        .doc-section ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-top: 8px;
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .doc-section ul li { padding-left: 2px; margin-bottom: 6px; }
+        .doc-section ul li::marker { color: #ff2391; font-size: 14px; }
+        .doc-section ul li::before { content: none; }
+
+        .last-updated {
+            text-align: center; color: #444; font-size: 12px;
+            margin-bottom: 36px; letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body class="subpage">
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">WishList</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-hero">
+        <div class="page-badge"><i class="fa-solid fa-shield-halved"></i> Legal</div>
+        <h1>Privacy Policy</h1>
+        <p>How we collect, use, and protect your information</p>
+    </div>
+
+    <div class="doc-wrap">
+        <p class="last-updated">Last updated: March 21, 2026</p>
+
+        <div class="doc-grid">
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-circle-info"></i> Overview</h2>
+            <p>FlixVerse is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your information. By using FlixVerse, you agree to the practices described here.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-database"></i> Information We Collect</h2>
+            <ul>
+                <li>Account info: name, email, <br>and password on registration.</li>
+                <li>Payment info (we do not store full card details).</li>
+                <li>Viewing history and preferences <br>for personalisation.</li>
+                <li>Device info: IP address, browser type, OS.</li>
+                <li>Usage data: pages visited and time spent.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-gears"></i> How We Use Your Information</h2>
+            <ul>
+                <li>To operate and improve the FlixVerse service.</li>
+                <li>To personalise content recommendations.</li>
+                <li>To send service-related notifications.</li>
+                <li>To detect and prevent fraud or abuse.</li>
+                <li>To comply with legal obligations.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-share-nodes"></i> Sharing of Information</h2>
+            <p>We do not sell your data. We may share it with:</p>
+            <ul>
+                <li>Service providers (payment processors,<br> cloud hosting).</li>
+                <li>Law enforcement when required by law.</li>
+                <li>Business partners only with your consent.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-cookie-bite"></i> Cookies</h2>
+            <p>We use cookies to enhance your experience and analyse usage. You can control them via your browser settings. Disabling cookies may affect some platform features.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-lock"></i> Data Security</h2>
+            <p>We use SSL encryption, secure servers, and access controls to protect your data. No internet transmission is 100% secure — we cannot guarantee absolute security.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-child"></i> Children's Privacy</h2>
+            <p>FlixVerse is not for children under 13. We don't knowingly collect their data. Contact us immediately if you believe a child has submitted personal information.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-user-shield"></i> Your Rights</h2>
+            <ul>
+                <li>Access and review your personal data.</li>
+                <li>Request correction of inaccurate data.</li>
+                <li>Request deletion of your account and data.</li>
+                <li>Opt out of marketing communications.</li>
+                <li>Lodge a complaint with a data authority.</li>
+            </ul>
+        </div>
+
+        </div><!-- end doc-grid -->
+
+        <div class="doc-section" style="margin-top:20px;">
+            <h2><i class="fa-solid fa-envelope"></i> Contact Us</h2>
+            <p>Questions about this Privacy Policy? Reach us at <a href="contact.html" style="color:#ff69b4;text-decoration:none;">our contact page</a> or email <span style="color:#2196f3;">privacy@flixverse.com</span>.</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="../MEDIA/logo1.png" class="logof">
+                    <span class="flix">FLIX</span> <span>VERSE</span>
+                </div>
+                <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+                <div class="footer-socials">
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="webseries.html">Web Series</a></li>
+                    <li><a href="tvshow.html">TV Shows</a></li>
+                    <li><a href="wishlist.html">My List</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="premium.html">Premium</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Help Center</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

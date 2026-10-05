@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Movies - FLIXVERSE</title>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body
+    { 
+    font-family: 'Outfit', sans-serif;
+    background-color: #060010;    
+    color: white;
+     min-height: 100vh; 
+     overflow-x: hidden;
+     }
+        .bg-orb 
+        { position: fixed; 
+          border-radius: 50%; 
+          filter: blur(130px); 
+          opacity: 0.18; 
+          pointer-events: none; 
+          z-index: 0; 
+        }
+        .orb1 
+        { width: 700px; 
+          height: 700px; 
+          background: #2196f3; 
+          top: -200px; 
+          left: -200px; }
+        .orb2 
+        { width: 500px; 
+          height: 500px; 
+          background: #ff2391; 
+          bottom: -100px; 
+          right: -100px; 
+        }
+        .orb3 { width: 350px; height: 350px; background: #0d47a1; top: 50%; left: 50%; }
+        .navbar img { position: absolute; left: 8px; bottom: 7px;}
+        .navbar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; padding: 0 60px; height: 62px; background: rgba(6,0,16,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(33,150,243,0.25); gap: 40px; }
+        .logo { font-size: 24px; font-weight: 800; white-space: nowrap; }
+        .logo .flix { text-shadow: #ff2391 0 0 8px, #ff69b4 0 0 16px; }
+        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #aaa; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: #2196f3; }
+        .back-link { margin-left: auto; color: #aaa; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+        .back-link:hover { color: #ff69b4; }
+        .hero { position: relative; z-index: 1; text-align: center; padding: 60px 20px 20px; }
+        .hero-label { display: inline-flex; align-items: center; gap: 8px; background: rgba(33,150,243,0.12); border: 1px solid rgba(33,150,243,0.35); border-radius: 20px; padding: 5px 16px; font-size: 11px; font-weight: 700; color: #64b5f6; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+        .hero h1 { font-size: clamp(30px, 4vw, 52px); font-weight: 800; background: linear-gradient(135deg, #fff 20%, #64b5f6 55%, #ff69b4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; }
+        .hero p { color: #888; font-size: 15px; }
+        .filter-bar { position: relative; z-index: 1; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 24px 40px 36px; }
+        .filter-btn { background: rgba(33,150,243,0.08); border: 1px solid rgba(33,150,243,0.2); color: #aaa; border-radius: 20px; padding: 6px 18px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+        .filter-btn:hover, .filter-btn.active { background: rgba(33,150,243,0.25); border-color: #2196f3; color: #fff; box-shadow: 0 0 12px rgba(33,150,243,0.4); }
+        .movies-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; padding: 0 40px 80px 40px; max-width: 1400px; margin: 0 auto; }
+        .movie-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(33,150,243,0.1); border-radius: 14px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; cursor: pointer; display: flex; flex-direction: column; }
+        .movie-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 0 28px rgba(33,150,243,0.35), 0 0 14px rgba(255,35,145,0.15); border-color: rgba(33,150,243,0.5); }
+        .poster-wrap { position: relative; width: 100%; aspect-ratio: 2/3; overflow: hidden; }
+        .poster-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s, filter 0.3s; filter: brightness(0.88); }
+        .movie-card:hover .poster-wrap img { transform: scale(1.07); filter: brightness(1); }
+        .poster-badge { position: absolute; top: 10px; left: 10px; background: linear-gradient(90deg, #ff2391, #2196f3); color: white; font-size: 9px; font-weight: 800; letter-spacing: 1px; padding: 3px 9px; border-radius: 10px; text-transform: uppercase; }
+        .poster-rating { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); color: #ffd700; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px; display: flex; align-items: center; gap: 4px; }
+        .poster-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+        .movie-card:hover .poster-overlay { background: rgba(0,0,0,0.35); }
+        .play-circle { width: 48px; height: 48px; border-radius: 50%; background: rgba(33,150,243,0.85); display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; opacity: 0; transform: scale(0.7); transition: opacity 0.3s, transform 0.3s; box-shadow: 0 0 20px #2196f3; }
+        .movie-card:hover .play-circle { opacity: 1; transform: scale(1); }
+        .card-info { padding: 12px 12px 14px; }
+        .card-title { font-size: 13px; font-weight: 700; color: #e0e0e0; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-genre 
+        { 
+            font-size: 11px; 
+            color: #2196f3; 
+            font-weight: 600; 
+            margin-bottom: 6px; 
+            letter-spacing: 0.5px; 
+        }
+        .card-summary 
+        { 
+            font-size: 11px; 
+            color: #777; 
+            line-height: 1.5; 
+            display: -webkit-box; 
+            -webkit-line-clamp: 3; 
+            line-clamp: 3; 
+            -webkit-box-orient: vertical; 
+            overflow: hidden; 
+        }
+        .filter-bar a
+        {
+            text-decoration: none;
+            color:#ffffff ;
+        }
+        .logof
+        {
+            position: absolute;
+            top: 0px;
+            left: 100px;
+        }
+    </style>
+</head>
+<body class="subpage">
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+    <div class="bg-orb orb3"></div>
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">My List</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-label"><i class="fa-solid fa-film"></i> All Movies</div>
+        <h1>Explore the Collection</h1>
+        <p>20 handpicked titles across every genre — your next watch is here.</p>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-btn active"><a href="../Index.html"></a>All</a></button>
+        <button class="filter-btn"><a href="../Index.html">Action</a></button>
+        <button class="filter-btn"><a href="../Index.html">Comedy</a></button>
+        <button class="filter-btn"><a href="../Index.html">Sci-Fi</a></button>
+        <button class="filter-btn"><a href="../Index.html">Romance</a></button>
+        <button class="filter-btn"><a href="../Index.html">Horror</a></button>
+        <button class="filter-btn"><a href="../Index.html">Fantasy</a></button>
+    </div>
+
+    <div class="movies-grid">
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/movies1.JPG">
+                <span class="poster-badge">Romance</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 8.4</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Twilight','../MEDIA/movies1.JPG','8.4')">+</button>
+                <div class="poster-overlay"><a href="../MEDIA/twilight video.mp4"><div class="play-circle"><i class="fa-solid fa-play"></a></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Twilight</div>
+                <div class="card-genre">Dark Romance · Fantasy · 2009</div>
+                <div class="card-summary">New Moon follows Bella Swan's deep depression after Edward Cullen leaves Forks to protect her, leading her to bond with Jacob Black, who is revealed as a werewolf.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/kid1 (5).JPG">
+                <span class="poster-badge">Blockbuster</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 7.9</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Tangled','../MEDIA/kid1 (5).JPG','7.9')">+</button>
+                <div class="poster-overlay"><a href="../MEDIA/TANGLED.mp4">
+                <div class="play-circle"><i class="fa-solid fa-play"></a></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Tangled</div>
+                <div class="card-genre">Fantasy · Musical · 2010</div>
+                <div class="card-summary">Disney animation of a classic tale. Beautiful princess Rapunzel has been locked away in a tower since she was captured as a baby by an old hag.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/toprated5.JPG">
+                <span class="poster-badge">Mind-Bending</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 8.8</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Maharaja','../MEDIA/toprated5.JPG','8.8')">+</button>
+                <div class="poster-overlay"><a href="../MEDIA/maharaja vid.mp4"><div class="play-circle"><i class="fa-solid fa-play"></a></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Maharaja</div>
+                <div class="card-genre">Action · Crime · 2024</div>
+                <div class="card-summary">The story follows a barber in Chennai who goes to the police station to retrieve his stolen dustbin, only for the police to find his intentions to be something else.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/movies4.JPG">
+                <span class="poster-badge">upcoming</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 9.0</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('King','../MEDIA/movies4.JPG','9.0')">+</button>
+                <div class="poster-overlay"><a href="../MEDIA/King vid.mp4"><div class="play-circle"><i class="fa-solid fa-play"></a></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">King</div>
+                <div class="card-genre">Adventure · Action · 2026</div>
+                <div class="card-summary">An upcoming high-octane Hindi action thriller directed by Siddharth Anand and starring Shah Rukh Khan as a gritty mentor/assassin navigating a dangerous world.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/movies5.jpeg">
+                <span class="poster-badge">Epic</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 7.5</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('The Jungle Book','../MEDIA/movies5.jpeg','7.5')">+</button>
+                <div class="poster-overlay"><a href="../MEDIA/jungle book.mp4"><div class="play-circle"><i class="fa-solid fa-play"></a></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">The Jungle Book</div>
+                <div class="card-genre">Fantasy · Adventure · 2017</div>
+                <div class="card-summary">Mowgli, a man-cub raised by wolves, finds he is no longer welcome in the jungle when fearsome tiger Shere Khan promises to eliminate what he sees as a threat.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/movies6.JPG">
+                <span class="poster-badge">Classic</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 8.9</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Titanic','../MEDIA/movies6.JPG','8.9')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Titanic</div>
+                <div class="card-genre">Epic · Romantic · 1997</div>
+                <div class="card-summary">Rose, forced to marry a wealthy man, falls in love with Jack, a talented artist, aboard the unsinkable Titanic. The ship hits an iceberg, endangering their lives.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/toprated4.JPG">
+                <span class="poster-badge">Adventure</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 9.3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('StarGate','../MEDIA/toprated4.JPG','9.3')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">StarGate</div>
+                <div class="card-genre">Sci-Fi · Action · 2025</div>
+                <div class="card-summary">A team must stop a "God" from using Ancient technology for galactic extinction, acting as a direct continuation of the beloved franchise.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/premium1.JPG">
+                <span class="poster-badge">Sci-Fi</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 8.8</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Stranger Things','../MEDIA/premium1.JPG','8.8')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Stranger Things</div>
+                 <div class="card-genre">Sci-Fi · Thriller · 2024</div>
+                <div class="card-summary">The plot centers on a group of kids, a psychic girl named Eleven, and local adults fighting creatures like the Demogorgon and Vecna, which are unleashed by government/Russian experiments.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/venom.JPG">
+                <span class="poster-badge">Action</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 9.3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Venom','../MEDIA/venom.JPG','9.3')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Venom</div>
+                <div class="card-genre">Action · Thriller · 2024</div>
+                <div class="card-summary">Venom: The Last Dance (2024) is the final film in the trilogy, featuring Eddie Brock and his symbiote, Venom, on the run from both human military forces and alien monsters from their home world.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/ho2.JPG">
+                <span class="poster-badge">Horror</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 9.3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('The Conjuring','../MEDIA/ho2.JPG','9.3')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">The Conjuring</div>
+                <div class="card-genre">Horror · Thriller · 2013</div>
+                <div class="card-summary">Paranormal investigators Ed and Lorraine Warren work to help a family terrorized by a dark presence in their farmhouse.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/ho3.JPG">
+                <span class="poster-badge">Horror</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 9.3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('The Exorcist','../MEDIA/ho3.JPG','9.3')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">The Exorcist</div>
+                <div class="card-genre">Horror · Drama · 1973</div>
+                <div class="card-summary">When a young girl is possessed by a mysterious entity, her mother seeks the help of two priests to save her daughter's soul.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/ho4.JPG">
+                <span class="poster-badge">Horror</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 8.3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Sinister II','../MEDIA/ho4.JPG','8.3')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Sinister II</div>
+                <div class="card-genre">Horror · Thriller · 2015</div>
+                <div class="card-summary">A young mother and her twin sons move into a rural house, unaware that a sinister supernatural entity has set its sights on the family.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/ho5.JPG">
+                <span class="poster-badge">Horror</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 9.3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Annabelle','../MEDIA/ho5.JPG','9.3')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Annabelle</div>
+                <div class="card-genre">Horror · Mystery · 2014</div>
+                <div class="card-summary">A couple begins to experience terrifying supernatural occurrences involving a vintage doll shortly after their home is invaded by satanic cultists.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/ho6.JPG">
+                <span class="poster-badge">Horror</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 8.3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('The Monster House','../MEDIA/ho6.JPG','8.3')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">The Monster House</div>
+                <div class="card-genre">Horror · Animation · 2006</div>
+                <div class="card-summary">Three kids discover that their neighbor's house is a living, breathing monster that devours anyone who comes near it.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/f1 (2).JPG">
+                <span class="poster-badge">Horror</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 7.0</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Scream','../MEDIA/f1 (2).JPG','7.0')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Scream</div>
+                <div class="card-genre">Horror · Mystery · 1996</div>
+                <div class="card-summary">Sidney Prescott becomes the target of a masked killer known as Ghostface who stalks teenagers while referencing horror movie tropes.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/movies10.JPG">
+                <span class="poster-badge">RomCom</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 6.7</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Ajab Prem ki Ghajab Kahaani','../MEDIA/movies10.JPG','6.7')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Ajab Prem ki Ghajab Kahaani</div>
+                <div class="card-genre">Romance · Comedy · 2009</div>
+                <div class="card-summary">The wacky adventures of a young man willing to sacrifice his own love to ensure the happiness of others.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/kid1 (3).JPG">
+                <span class="poster-badge">Bollywood</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 7.3</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Bhootnath','../MEDIA/kid1 (3).JPG','7.3')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Bhootnath</div>
+                <div class="card-genre">Family · Comedy · 2008</div>
+                <div class="card-summary">Moving into a new house, a family witnesses an unfriendly ghost who wants to drive them away. He befriends a little boy who changes his outlook forever.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/IMG_7592.JPG">
+                <span class="poster-badge">Fantasy</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 5.7</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Moana 2','../MEDIA/IMG_7592.JPG','5.7')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Moana 2</div>
+                <div class="card-genre">Disney · Fantasy · 2025</div>
+                <div class="card-summary">Moana 2 follows Moana three years later as she receives an unexpected call from her wayfinding ancestors to explore the far seas of Oceania.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/kid10.JPG">
+                <span class="poster-badge">Comedy</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 6.5</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Mr. Bean','../MEDIA/kid10.JPG','6.5')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Mr. Bean</div>
+                <div class="card-genre">Comedy · Drama · 2017</div>
+                <div class="card-summary">Mr. Bean is a childish buffoon who brings various unusual schemes and contrivances to everyday tasks in his trademark tweed jacket and skinny red tie.</div>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <div class="poster-wrap">
+                <img src="../MEDIA/doremon.jpeg">
+                <span class="poster-badge">Kids</span>
+                <span class="poster-rating"><i class="fa-solid fa-star"></i> 7.8</span>
+                <button class="wishlist-plus-btn" onclick="addItemToWishlist('Doraemon','../MEDIA/doremon.jpeg','7.8')">+</button>
+                <div class="poster-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+            </div>
+            <div class="card-info">
+                <div class="card-title">Doraemon</div>
+                <div class="card-genre">Comedy · Emotion · 2015</div>
+                <div class="card-summary">Doraemon is a blue robot cat from the 22nd century sent back in time to guide a lazy, clumsy elementary boy named Nobita Nobi.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <div class="footer-logo">
+                <img src="../MEDIA/logo1.png" class="logof">
+                <span class="flix">FLIX</span> <span>VERSE</span>
+            </div>
+            <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+            <div class="footer-socials">
+                <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Browse</h4>
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="tvshow.html">TV Shows</a></li>
+                <li><a href="wishlist.html">WishList</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Genres</h4>
+            <ul>
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Horror</a></li>
+                <li><a href="#">Romance</a></li>
+                <li><a href="#">Thriller</a></li>
+                <li><a href="#">Sci-Fi</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+                <li><a href="premium.html">Premium</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms of Use</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+        <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+        <div class="footer-bottom-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleSearch() {
+        const input = document.getElementById('searchInput');
+        input.classList.toggle('open');
+        if (input.classList.contains('open')) input.focus();
+    }
+    function toggleMenu() {
+        const dropdown = document.getElementById('menuDropdown');
+        dropdown.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+        const menuIcon = document.getElementById('menuIcon');
+        if (menuIcon && !menuIcon.contains(e.target)) {
+            document.getElementById('menuDropdown').classList.remove('open');
+        }
+    });
+    function getWishlist() {
+        return JSON.parse(localStorage.getItem('flixverse_wishlist') || '[]');
+    }
+    function addItemToWishlist(title, thumb, rating) {
+        const list = getWishlist();
+        const exists = list.find(i => i.plainTitle === title);
+        if (exists) { showToast(`"${title}" is already in your list!`); return; }
+        list.push({ plainTitle: title, thumb: thumb, rating: rating });
+        localStorage.setItem('flixverse_wishlist', JSON.stringify(list));
+        showToast(`"${title}" added to My List!`);
+    }
+    function showToast(msg) {
+        let toast = document.getElementById('wl-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'wl-toast';
+            toast.style.cssText = `position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+                background:rgba(255,35,145,0.92);color:white;padding:12px 28px;border-radius:30px;
+                font-size:13px;font-weight:700;z-index:9999;letter-spacing:0.5px;
+                box-shadow:0 0 20px rgba(255,35,145,0.5);transition:opacity 0.4s;`;
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.opacity = '1';
+        clearTimeout(toast._t);
+        toast._t = setTimeout(() => toast.style.opacity = '0', 2500);
+    }
+</script>

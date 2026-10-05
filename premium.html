@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Premium - FLIXVERSE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #07000f;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .orb1 { width: 600px; height: 600px; background: #ff2391; top: -150px; left: -150px; }
+        .orb2 { width: 500px; height: 500px; background: #2196f3; bottom: -100px; right: -100px; }
+        .orb3 { width: 300px; height: 300px; background: #ff69b4; top: 40%; left: 40%; }
+        .navbar img
+        {
+            position: absolute;
+            left: 8px;
+            bottom: 7px;
+        }
+
+        .navbar {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+            height: 60px;
+            background: rgba(10,0,20,0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255,35,145,0.2);
+        }
+        .logo { font-size: 26px; font-weight: 800; }
+        .flix { text-shadow: #ff2391 0 0 8px, #ff69b4 0 0 16px; }
+        .back-link {
+            margin-left: auto;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: #ff69b4; }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 70px 20px 30px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,35,145,0.12);
+            border: 1px solid rgba(255,35,145,0.4);
+            border-radius: 20px;
+            padding: 6px 18px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #ff69b4;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 58px);
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff 30%, #ff69b4 70%, #2196f3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 14px;
+        }
+        .hero p {
+            color: #aaa;
+            font-size: 16px;
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .perks-strip {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px 40px;
+            padding: 28px 40px 50px;
+        }
+        .perk {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ccc;
+            font-size: 13px;
+        }
+        .perk i { color: #2196f3; font-size: 14px; }
+
+        .plans-section {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding: 0 40px 80px;
+        }
+
+        .plan {
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 36px 28px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .plan:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 30px rgba(255,35,145,0.2), 0 0 60px rgba(33,150,243,0.1);
+        }
+        .plan.popular {
+            border-color: rgba(255,35,145,0.5);
+            background: rgba(255,35,145,0.07);
+            box-shadow: 0 0 30px rgba(255,35,145,0.15);
+        }
+        .popular-tag {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: linear-gradient(90deg, #ff2391, #ff69b4);
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .plan-icon { font-size: 28px; text-align: center;}
+        .plan-icon.basic { color: #2196f3; }
+        .plan-icon.std   { color: #ff69b4; }
+        .plan-icon.ultra { color: #ffd700; }
+
+        .plan h2 { font-size: 20px; font-weight: 800; text-align: center; }
+        .plan .price {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff2391, #2196f3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        .plan .price span {
+            font-size: 14px;
+            -webkit-text-fill-color: #888;
+            color: #888;
+        }
+
+        .plan ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1;
+        }
+        .plan ul li {
+            font-size: 13px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 0px;
+            padding-right: 340px;
+        }
+        .plan ul li i.fa-check { color: #2196f3; }
+        .plan ul li i.fa-xmark { color: #444; }
+        .plan ul li.disabled { color: #444; }
+
+        .plan-btn {
+            background: linear-gradient(90deg, #ff2391, #2196f3);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            width: 100%;
+        }
+        .plan-btn:hover {
+            box-shadow: 0 0 20px #ff2391, 0 0 20px #2196f3;
+            transform: scale(1.03);
+        }
+        .plan-btn.outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #ccc;
+        }
+        .plan-btn.outline:hover {
+            border-color: #ff69b4;
+            color: white;
+            box-shadow: 0 0 14px rgba(255,35,145,0.3);
+        }
+
+        .featured {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 0 40px 80px;
+        }
+        .featured h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #888;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .featured-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .featured-grid img {
+            width: 150px;
+            height: 210px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 0 16px rgba(255,35,145,0.25);
+            transition: transform 0.3s, box-shadow 0.3s, filter 0.3s;
+            filter: brightness(0.8);
+        }
+        .featured-grid img:hover {
+            transform: scale(1.07) translateY(-6px);
+            box-shadow: 0 0 28px #ff2391, 0 0 18px #2196f3;
+            filter: brightness(1);
+        }
+        .logof
+        {
+            position: absolute;
+            top: 0px;
+            left: 100px;
+        }
+    </style>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+</head>
+<body class="subpage">
+
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+    <div class="bg-orb orb3"></div>
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">My List</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-badge"><i class="fa-solid fa-crown"></i> FLIXVERSE PREMIUM</div>
+        <h1>Stream Without Limits</h1>
+        <p>Pick a plan and get instant access to thousands of movies, series, and exclusive originals — completely ad-free.</p>
+    </div>
+
+    <div class="perks-strip">
+        <div class="perk"><i class="fa-solid fa-tv"></i> Watch on any device</div>
+        <div class="perk"><i class="fa-solid fa-ban"></i> Zero ads</div>
+        <div class="perk"><i class="fa-solid fa-download"></i> Download offline</div>
+        <div class="perk"><i class="fa-solid fa-film"></i> Exclusive originals</div>
+        <div class="perk"><i class="fa-solid fa-rotate-left"></i> Cancel anytime</div>
+    </div>
+
+    <div class="plans-section">
+
+        <div class="plan">
+            <div class="plan-icon basic"><i class="fa-solid fa-play"></i></div>
+            <h2>Basic</h2>
+            <div class="price">&#8377;149 <span>/ month</span></div>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Movies &amp; series library</li>
+                <li><i class="fa-solid fa-check"></i> Standard definition (SD)</li>
+                <li><i class="fa-solid fa-check"></i> 1 screen at a time</li>
+                <li class="disabled"><i class="fa-solid fa-xmark"></i> Ad-free</li>
+                <li class="disabled"><i class="fa-solid fa-xmark"></i> Downloads</li>
+            </ul>
+            <button class="plan-btn outline" onclick="window.location.href='payment.html?plan=basic'">Get Basic</button>
+        </div>
+
+        <div class="plan popular">
+            <div class="popular-tag">Most Popular</div>
+            <div class="plan-icon std"><i class="fa-solid fa-star"></i></div>
+            <h2>Standard</h2>
+            <div class="price">&#8377;349 <span>/ month</span></div>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Full movies &amp; series library</li>
+                <li><i class="fa-solid fa-check"></i> Full HD 1080p</li>
+                <li><i class="fa-solid fa-check"></i> 2 screens at a time</li>
+                <li><i class="fa-solid fa-check"></i> Ad-free experience</li>
+                <li class="disabled"><i class="fa-solid fa-xmark"></i> Downloads</li>
+            </ul>
+            <button class="plan-btn" onclick="window.location.href='payment.html?plan=standard'">Get Standard</button>
+        </div>
+
+        <div class="plan">
+            <div class="plan-icon ultra"><i class="fa-solid fa-crown"></i></div>
+            <h2>Ultra</h2>
+            <div class="price">&#8377;649 <span>/ month</span></div>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Everything in Standard</li>
+                <li><i class="fa-solid fa-check"></i> 4K Ultra HD + Dolby Atmos</li>
+                <li><i class="fa-solid fa-check"></i> 4 screens at a time</li>
+                <li><i class="fa-solid fa-check"></i> Download &amp; watch offline</li>
+                <li><i class="fa-solid fa-check"></i> Early access to originals</li>
+            </ul>
+            <button class="plan-btn" onclick="window.location.href='payment.html?plan=ultra'">Get Ultra</button>
+        </div>
+
+    </div>
+
+    <div class="featured">
+        <h3>What's waiting for you</h3>
+        <div class="featured-grid">
+            <img src="../MEDIA/IMG_7755.JPG" >
+            <img src="../MEDIA/series1.JPG" >
+            <img src="../MEDIA/pre2.JPG" >
+            <img src="../MEDIA/toprated4.JPG" >
+            <img src="../MEDIA/premium1.JPG" >
+            <img src="../MEDIA/sila.jpeg">
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="../MEDIA/logo1.png" class="logof">
+                    <span class="flix">FLIX</span> <span>VERSE</span>
+                </div>
+                <p>Unlock the full FlixVerse experience with Premium — ad-free, 4K, and exclusive originals.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://x.com" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.youtube.com" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.facebook.com" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="webseries.html">Web Series</a></li>
+                    <li><a href="tvshow.html">TV Shows</a></li>
+                    <li><a href="wishlist.html">My List</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Plans</h4>
+                <ul>
+                    <li><a href="premium.html">Basic – ₹149/mo</a></li>
+                    <li><a href="premium.html">Standard – ₹349/mo</a></li>
+                    <li><a href="premium.html">Ultra – ₹649/mo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

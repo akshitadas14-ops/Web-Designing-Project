@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contact Us - FLIXVERSE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #07000f;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(130px); opacity: 0.18; pointer-events: none; z-index: 0; }
+        .orb1 { width: 600px; height: 600px; background: #ff2391; top: -150px; left: -150px; }
+        .orb2 { width: 500px; height: 500px; background: #2196f3; bottom: -100px; right: -100px; }
+
+        /* navbar */
+        .navbar img
+        {
+            position: absolute;
+            left: 8px;
+            bottom: 7px;
+
+        }
+        .navbar {
+            position: sticky; top: 0; z-index: 100;
+            display: flex; align-items: center;
+            padding: 0 60px; height: 62px;
+            background: rgba(7,0,15,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,35,145,0.2);
+            gap: 36px;
+        }
+        .logo { font-size: 24px; font-weight: 800; white-space: nowrap; }
+        .logo .flix { text-shadow: #ff2391 0 0 8px, #ff69b4 0 0 16px; }
+        .back-link {
+            margin-left: auto; color: #aaa; text-decoration: none;
+            font-size: 13px; display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+        }
+        .back-link:hover { color: #ff69b4; }
+
+        /* hero */
+        .contact-hero {
+            position: relative; z-index: 1;
+            text-align: center; padding: 70px 20px 40px;
+        }
+        .contact-hero .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,35,145,0.1);
+            border: 1px solid rgba(255,35,145,0.35);
+            border-radius: 20px; padding: 5px 18px;
+            font-size: 11px; font-weight: 700; color: #ff69b4;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px;
+        }
+        .contact-hero h1 {
+            font-size: clamp(30px, 4vw, 52px); font-weight: 800;
+            background: linear-gradient(135deg, #fff 20%, #ff69b4 60%, #2196f3 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 12px;
+        }
+        .contact-hero p { color: #888; font-size: 15px; }
+
+        /* layout */
+        .contact-layout {
+            position: relative; z-index: 1;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 40px; max-width: 1100px;
+            margin: 0 auto; padding: 0 40px 80px;
+        }
+
+        /* info cards */
+        .contact-info { display: flex; flex-direction: column; gap: 20px; }
+        .info-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,35,145,0.15);
+            border-radius: 14px; padding: 22px 24px;
+            display: flex; align-items: flex-start; gap: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .info-card:hover {
+            border-color: rgba(255,35,145,0.45);
+            box-shadow: 0 0 20px rgba(255,35,145,0.12);
+        }
+        .info-icon {
+            width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+            background: linear-gradient(135deg, rgba(255,35,145,0.2), rgba(33,150,243,0.2));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: #ff69b4;
+        }
+        .info-text h4 { font-size: 14px; font-weight: 700; color: #e0e0e0; margin-bottom: 4px; }
+        .info-text p { font-size: 13px; color: #888; line-height: 1.5; }
+        .info-text a { color: #2196f3; text-decoration: none; }
+        .info-text a:hover { color: #ff69b4; }
+
+        /* social row */
+        .social-row { display: flex; gap: 12px; margin-top: 4px; }
+        .social-btn {
+            width: 40px; height: 40px; border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white; font-size: 16px;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; transition: all 0.2s;
+        }
+        .social-btn:hover { background: #ff2391; border-color: #ff2391; box-shadow: 0 0 14px #ff2391; }
+
+        /* form */
+        .contact-form {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(33,150,243,0.15);
+            border-radius: 18px; padding: 36px 32px;
+        }
+        .contact-form h3 { font-size: 18px; font-weight: 700; margin-bottom: 24px; color: #e0e0e0; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+        .form-group label { font-size: 12px; font-weight: 700; color: #aaa; letter-spacing: 1px; text-transform: uppercase; }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 11px 14px;
+            color: white; font-size: 13px;
+            font-family: 'Outfit', sans-serif;
+            outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ff2391;
+            box-shadow: 0 0 10px rgba(255,35,145,0.2);
+        }
+        .form-group select option { background: #1a0a2e; }
+        .form-group textarea { resize: vertical; min-height: 110px; }
+        .submit-btn {
+            width: 100%; background: linear-gradient(90deg, #ff2391, #2196f3);
+            color: white; border: none; border-radius: 8px;
+            padding: 13px; font-size: 15px; font-weight: 800;
+            cursor: pointer; letter-spacing: 1px;
+            font-family: 'Outfit', sans-serif;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .submit-btn:hover { box-shadow: 0 0 22px #ff2391, 0 0 22px #2196f3; transform: scale(1.02); }
+
+        /* success msg */
+        .success-msg {
+            display: none; text-align: center; padding: 16px;
+            background: rgba(33,150,243,0.1); border: 1px solid rgba(33,150,243,0.3);
+            border-radius: 8px; color: #64b5f6; font-size: 14px; margin-top: 14px;
+        }
+
+        /* footer inside contact page */
+        .page-footer {
+            position: relative; z-index: 1;
+            background: rgba(0,0,0,0.4);
+            border-top: 1px solid rgba(255,35,145,0.15);
+            text-align: center; padding: 20px;
+            color: #555; font-size: 12px;
+        }
+        .page-footer span { color: #ff69b4; }
+    </style>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+</head>
+<body class="subpage">
+
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">WishList</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-hero">
+        <div class="badge"><i class="fa-solid fa-envelope"></i> Get in Touch</div>
+        <h1>Contact Us</h1>
+        <p>Have a question, feedback, or issue? We'd love to hear from you.</p>
+    </div>
+
+    <div class="contact-layout">
+
+        <div class="contact-info">
+
+            <div class="info-card">
+                <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="info-text">
+                    <h4>Email Us</h4>
+                    <p>For general queries and support<br>
+                    <a href="mailto:support@flixverse.com">support@flixverse.com</a></p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                <div class="info-text">
+                    <h4>Call Us</h4>
+                    <p>Mon – Fri, 9 AM to 6 PM IST<br>
+                    <a href="tel:+911800000000">+91 1800-000-0000</a> (Toll Free)</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="info-text">
+                    <h4>Our Office</h4>
+                    <p>FlixVerse HQ, 4th Floor<br>
+                    Tech Park, Bengaluru – 560001<br>Karnataka, India</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon"><i class="fa-solid fa-share-nodes"></i></div>
+                <div class="info-text">
+                    <h4>Follow Us</h4>
+                    <div class="social-row">
+                        <a href="https://www.instagram.com" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="x.com" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.youtube.com" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.facebook.com" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="contact-form">
+            <h3>Send us a Message</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="fname" placeholder="John">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="lname" placeholder="Doe">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+                <label>Subject</label>
+                <select id="subject">
+                    <option value="">Select a topic</option>
+                    <option>Account Issue</option>
+                    <option>Billing & Payments</option>
+                    <option>Content Request</option>
+                    <option>Technical Problem</option>
+                    <option>Feedback</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea id="message" placeholder="Tell us how we can help..."></textarea>
+            </div>
+            <button class="submit-btn" onclick="submitForm()"><i class="fa-solid fa-paper-plane"></i> &nbsp;Send Message</button>
+            <div class="success-msg" id="successMsg">
+                <i class="fa-solid fa-circle-check"></i> &nbsp;Message sent! We'll get back to you within 24 hours.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="../MEDIA/logo1.png" class="logof">
+                    <span class="flix">FLIX</span> <span>VERSE</span>
+                </div>
+                <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+                <div class="footer-socials">
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="webseries.html">Web Series</a></li>
+                    <li><a href="tvshow.html">TV Shows</a></li>
+                    <li><a href="wishlist.html">My List</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Genres</h4>
+                <ul>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Horror</a></li>
+                    <li><a href="#">Romance</a></li>
+                    <li><a href="#">Thriller</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="premium.html">Premium</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+        function submitForm() {
+            const fname = document.getElementById('fname').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            if (!fname || !email || !message) {
+                alert('Please fill in your name, email, and message.');
+                return;
+            }
+            document.getElementById('successMsg').style.display = 'block';
+            setTimeout(() => document.getElementById('successMsg').style.display = 'none', 4000);
+            document.getElementById('fname').value = '';
+            document.getElementById('lname').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('subject').value = '';
+            document.getElementById('message').value = '';
+        }
+    </script>
+
+</body>
+</html>

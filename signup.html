@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | FlixVerse</title>
+    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="subpage">
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">My List</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-img">
+        <div class="overlay"></div>
+        <form action="action_page.php" class="container">
+            <div class="logo">
+                <img src="../media/logo1.png" alt="logo" height="40px" width="40px">
+                <span>FLIXVERSE</span>
+            </div>
+            <h1>SIGN UP</h1>
+            <p class="subtitle">Please fill in this form to create an account.</p>
+            <hr>
+
+            <div class="input-group">
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+            </div>
+
+            <div class="input-group">
+                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+            </div>
+
+            <label class="checkbox-container">
+                <input type="checkbox" checked="checked" name="remember">
+                <span class="checkmark"></span>
+                Remember me
+            </label>
+
+            <p class="terms">By creating an account you agree to our <a href="../HTML/terms.html">Terms & Privacy</a>.</p>
+
+            <div class="clearfix">
+                <button type="button" class="cancelbtn" onclick="window.location.href='../index.html'">Cancel</button>
+                <button type="submit" class="signupbtn">Sign Up</button>
+            </div>
+
+            <div class="form-footer">
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="../MEDIA/logo1.png" class="logof">
+                    <span class="flix">FLIX</span> <span>VERSE</span>
+                </div>
+                <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+                <div class="footer-socials">
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="webseries.html">Web Series</a></li>
+                    <li><a href="tvshow.html">TV Shows</a></li>
+                    <li><a href="wishlist.html">My List</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Genres</h4>
+                <ul>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Horror</a></li>
+                    <li><a href="#">Romance</a></li>
+                    <li><a href="#">Thriller</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="premium.html">Premium</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+    </script>
+</body>
+
+</html>

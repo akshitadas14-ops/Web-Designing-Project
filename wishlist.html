@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wish List - FLIXVERSE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #060010;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(130px); opacity: 0.15; pointer-events: none; z-index: 0; }
+        .orb1 { width: 600px; height: 600px; background: #ff2391; top: -150px; left: -150px; }
+        .orb2 { width: 450px; height: 450px; background: #2196f3; bottom: -100px; right: -100px; }
+        .navbar img
+        {
+            position: absolute;
+            left: 8px;
+            bottom: 7px;
+        }
+        .navbar {
+            position: sticky; top: 0; z-index: 100;
+            display: flex; align-items: center;
+            padding: 0 60px; height: 62px;
+            background: rgba(6,0,16,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,35,145,0.25);
+            gap: 40px;
+        }
+        .logo { font-size: 24px; font-weight: 800; text-decoration: none; }
+        .logo .flix { color: white; text-shadow: #ff2391 0 0 8px, #ff69b4 0 0 16px; }
+        .logo .verse { color: white; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #aaa; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: #ff2391; }
+        .back-link { margin-left: auto; color: #aaa; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+        .back-link:hover { color: #ff69b4; }
+        .page-hero {
+            position: relative; z-index: 1;
+            text-align: center; padding: 60px 20px 30px;
+        }
+        .hero-label {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,35,145,0.12);
+            border: 1px solid rgba(255,35,145,0.35);
+            border-radius: 20px; padding: 5px 16px;
+            font-size: 11px; font-weight: 700; color: #ff69b4;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
+        }
+        .page-hero h1 {
+            font-size: clamp(28px, 4vw, 48px); font-weight: 800;
+            background: linear-gradient(135deg, #fff 20%, #ff69b4 60%, #2196f3 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 10px;
+        }
+        .page-hero p { color: #888; font-size: 14px; }
+        #wishlist-count {
+            display: inline-block; margin-top: 8px;
+            background: rgba(255,35,145,0.15);
+            border: 1px solid rgba(255,35,145,0.3);
+            border-radius: 20px; padding: 3px 14px;
+            font-size: 12px; font-weight: 700; color: #ff69b4;
+        }
+        .wishlist-section { position: relative; z-index: 1; padding: 20px 50px 80px; }
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+        .wishlist-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,35,145,0.12);
+            border-radius: 14px; overflow: hidden;
+            position: relative; cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .wishlist-item:hover {
+            transform: translateY(-7px) scale(1.02);
+            box-shadow: 0 0 26px rgba(255,35,145,0.35), 0 0 12px rgba(33,150,243,0.15);
+            border-color: rgba(255,35,145,0.5);
+        }
+        .wishlist-item img {
+            width: 100%; height: 280px; object-fit: cover;
+            transition: transform 0.4s, filter 0.3s;
+            filter: brightness(0.85);
+        }
+        .wishlist-item:hover img { transform: scale(1.06); filter: brightness(1); }
+        .wishlist-info { padding: 12px 14px 14px; }
+        .wishlist-info h3 { font-size: 14px; font-weight: 700; color: #e0e0e0; margin-bottom: 4px; }
+        .wishlist-rating { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #ffd700; font-weight: 600; }
+        .remove-btn {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,35,145,0.3);
+            color: #ff2391; border-radius: 50%;
+            width: 34px; height: 34px; font-size: 14px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: background 0.2s, transform 0.2s;
+        }
+        .remove-btn:hover { background: #ff2391; color: white; transform: scale(1.1); }
+        .empty-state {
+            display: none; flex-direction: column; align-items: center;
+            justify-content: center; gap: 16px;
+            padding: 80px 20px; text-align: center;
+            position: relative; z-index: 1;
+        }
+        .empty-state i { font-size: 60px; color: rgba(255,35,145,0.3); }
+        .empty-state h2 { font-size: 22px; color: #555; }
+        .empty-state p { color: #444; font-size: 14px; }
+        .empty-state a {
+            margin-top: 8px; padding: 10px 28px;
+            background: linear-gradient(90deg, #ff2391, #2196f3);
+            color: white; text-decoration: none; border-radius: 6px;
+            font-size: 13px; font-weight: 700;
+            transition: box-shadow 0.2s;
+        }
+        .empty-state a:hover { box-shadow: 0 0 16px #ff2391; }
+
+        /* FOOTER */
+        .footer {
+            background: linear-gradient(180deg, #0a0014, #060010);
+            border-top: 1px solid rgba(255,35,145,0.2);
+            padding: 30px 60px; display: flex;
+            justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 10px; position: relative; z-index: 1;
+        }
+        .footer p { color: #555; font-size: 12px; }
+        .footer p span { color: #ff69b4; }
+        .footer-links { display: flex; gap: 18px; }
+        .footer-links a { color: #555; font-size: 12px; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: #ff69b4; }
+    </style>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+</head>
+<body class="subpage">
+
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">My List</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-hero">
+        <div class="hero-label"><i class="fa-solid fa-heart"></i> My List</div>
+        <h1>Your Saved Titles</h1>
+        <p>Everything you've added to watch later.</p>
+        <span id="wishlist-count">0 titles</span>
+    </div>
+
+    <div class="wishlist-section">
+        <div class="wishlist-grid" id="wishlistGrid"></div>
+        <div class="empty-state" id="emptyState">
+            <i class="fa-regular fa-heart"></i>
+            <h2>Your list is empty</h2>
+            <p>Hit "+ MY LIST" on any title to save it here.</p>
+            <a href="../Index.html">Browse Titles</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="../MEDIA/logo1.png" class="logof">
+                    <span class="flix">FLIX</span> <span>VERSE</span>
+                </div>
+                <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+                <div class="footer-socials">
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="webseries.html">Web Series</a></li>
+                    <li><a href="tvshow.html">TV Shows</a></li>
+                    <li><a href="wishlist.html">My List</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Genres</h4>
+                <ul>
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Horror</a></li>
+                    <li><a href="#">Romance</a></li>
+                    <li><a href="#">Thriller</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="premium.html">Premium</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+        function getWishlist() {
+            return JSON.parse(localStorage.getItem('flixverse_wishlist') || '[]');
+        }
+        function saveWishlist(list) {
+            localStorage.setItem('flixverse_wishlist', JSON.stringify(list));
+        }
+        function getRemovedDefaults() {
+            return JSON.parse(localStorage.getItem('flixverse_removed') || '[]');
+        }
+        function removeItem(title) {
+            // Remove from saved list
+            let list = getWishlist().filter(i => i.plainTitle !== title);
+            saveWishlist(list);
+            // Track removed defaults so they don't reappear
+            const removed = getRemovedDefaults();
+            if (!removed.includes(title)) {
+                removed.push(title);
+                localStorage.setItem('flixverse_removed', JSON.stringify(removed));
+            }
+            renderWishlist();
+        }
+        function renderWishlist() {
+            const defaults = [
+                { plainTitle: "Saiyaara",           thumb: "MEDIA/wsh 3.JPG",        rating: "8.6", genre: "Romance · Bollywood" },
+                { plainTitle: "Aladdin",             thumb: "MEDIA/IMG_7730.JPG",          rating: "7.9", genre: "Fantasy · Animation" },
+                { plainTitle: "DDLJ",        thumb: "MEDIA/kid1 (1).JPG",      rating: "8.8", genre: "Fantasy · Adventure" },
+                { plainTitle: "Twilight",            thumb: "MEDIA/rom2.JPG",          rating: "8.4", genre: "Romance · Fantasy" },
+                { plainTitle: "The Lion King",       thumb: "MEDIA/wsh 4.JPG",      rating: "8.5", genre: "Animation · Drama" },
+                { plainTitle: "Titanic",             thumb: "MEDIA/movies6.JPG",       rating: "9.0", genre: "Romance · Classic" },
+                { plainTitle: "Finding Nemo",        thumb: "MEDIA/nemo.jpeg",         rating: "8.1", genre: "Animation · Family" },
+                { plainTitle: "Wednesday",           thumb: "MEDIA/wsh 2.JPG",    rating: "9.2", genre: "Horror · Mystery" },
+                { plainTitle: "Tangled",             thumb: "MEDIA/kid1 (5).JPG",      rating: "7.8", genre: "Fantasy · Musical" },
+                { plainTitle: "The Conjuring",       thumb: "MEDIA/ho2.JPG",           rating: "9.3", genre: "Horror · Thriller" },
+                { plainTitle: "Inception",           thumb: "MEDIA/toprated1.JPG",     rating: "8.8", genre: "Sci-Fi · Thriller" },
+                { plainTitle: "Doraemon",            thumb: "MEDIA/doremon.jpeg",      rating: "7.8", genre: "Animation · Comedy" },
+            ];
+
+            const saved = getWishlist();
+            const removed = getRemovedDefaults();
+            const savedTitles = saved.map(i => i.plainTitle);
+            const extras = defaults.filter(d => !savedTitles.includes(d.plainTitle) && !removed.includes(d.plainTitle));
+            const list = [...saved, ...extras];
+            const grid = document.getElementById('wishlistGrid');
+            const empty = document.getElementById('emptyState');
+            const count = document.getElementById('wishlist-count');
+
+            count.textContent = list.length + ' title' + (list.length !== 1 ? 's' : '');
+            grid.innerHTML = '';
+
+            if (list.length === 0) {
+                grid.style.display = 'none';
+                empty.style.display = 'flex';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            empty.style.display = 'none';
+
+            list.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'wishlist-item';
+                div.innerHTML = `
+                    <img src="../${item.thumb}" alt="${item.plainTitle}" onerror="this.src='../MEDIA/logo1.png'">
+                    <div class="wishlist-info">
+                        <h3>${item.plainTitle}</h3>
+                        <div style="font-size:11px;color:#2196f3;font-weight:600;margin-bottom:4px;">${item.genre || ''}</div>
+                        <div class="wishlist-rating"><i class="fa-solid fa-star"></i> ${item.rating}</div>
+                    </div>
+                    <button class="remove-btn" title="Remove from list" onclick="removeItem('${item.plainTitle}')">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>`;
+                grid.appendChild(div);
+            });
+        }
+
+        renderWishlist();
+    </script>
+</body>
+</html>

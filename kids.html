@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FLIXVERSE KIDS</title>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+    <link rel="stylesheet" href="../css/kids.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="subpage">
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li id="ws"><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">WishList</a></li>
+                <li id="tv"><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- slide show strts -->
+    <section class="kids-hero">
+        <div class="hero-bg">
+            <video src="../MEDIA/suzumevid.MP4" autoplay muted loop playsinline class="hero-video" id="kidsHeroBg"></video>
+        </div>
+        <div class="hero-overlay"></div>
+
+        <!-- Mute/Unmute -->
+        <button class="slide-audio-btn" id="kidsAudioBtn" onclick="toggleKidsAudio()" title="Toggle Audio">
+            <i class="fa-solid fa-volume-xmark" id="kidsAudioIcon"></i>
+        </button>
+
+        <!-- Video Modal Overlay -->
+        <div class="video-modal" id="videoModal">
+            <video id="bannerVideo" src="../MEDIA/suzumevid.MP4" controls autoplay></video>
+            <button class="close-video" id="closeVideo">✕</button>
+        </div>
+
+        <div class="hero-content">
+            <div class="kids-badge">🌟 KIDS</div>
+            <h1 class="hero-title">SUZUME</h1>
+            <p class="hero-desc">Magical stories, fun characters, and endless adventures for young explorers.</p>
+            <div class="hero-buttons">
+                <button class="btn-play" id="playBannerBtn">▶ Play Video</button>
+                <a href="../HTML/wishlist.html"><button class="btn-list" id="btnlistf">+ My List</a></button>
+            </div>
+            <div class="hero-meta">Animation | Family | All Ages | ⭐ 9.0</div>
+        </div>
+    </section>
+
+    <!-- Characters Row -->
+    <section class="characters-section">
+        <h2 class="section-title">🎭 Characters</h2>
+        <div class="characters-wrapper">
+            <button class="char-arrow left" id="charLeft">&#10094;</button>
+            <div class="characters-row" id="charsRow">
+                <div class="char-circle"><img src="../media/naruto.jpeg" alt="Character 1"><span>Naruto</span></div>
+                <div class="char-circle"><img src="../media/obito.jpeg" alt="Character 2"><span>Obito</span></div>
+                <div class="char-circle"><img src="../media/goku.jpeg" alt="Character 3"><span>Goku</span></div>
+                <div class="char-circle"><img src="../media/tanjiro.jpeg" alt="Character 4"><span>Tanjiro</span></div>
+                <div class="char-circle"><img src="../media/pikachu.jpg" alt="Character 5"><span>Pikachu</span></div>
+                <div class="char-circle"><img src="../media/suzumeface.jpeg" alt="Character 6"><span>Suzume</span></div>
+                <div class="char-circle"><img src="../media/zenitsu.jpeg" alt="Character 7"><span>Zenitsu</span></div>
+                <div class="char-circle"><img src="../media/mikasa.jpeg" alt="Character 8"><span>Mikasa</span></div>
+                <div class="char-circle"><img src="../media/gojo.jpg" alt="Character 9"><span>Gojo</span></div>
+                <div class="char-circle"><img src="../media/shoto.jpg" alt="Character 10"><span>Shoto</span></div>
+                <div class="char-circle"><img src="../media/luffy.webp" alt="Character 11"><span>Luffy</span></div>
+                <div class="char-circle"><img src="../media/scooby.jpg" alt="Character 12"><span>Scooby</span></div>
+                <div class="char-circle"><img src="../media/doremon1.jpg" alt="Character 13"><span>Doremon</span></div>
+                <div class="char-circle"><img src="../media/dora.jpeg" alt="Character 14"><span>Dora</span></div>
+            </div>
+            <button class="char-arrow right" id="charRight">&#10095;</button>
+        </div>
+    </section>
+    <section class="kids-shows">
+        <h2 class="section-title">🎬 Popular Kids and Anime Shows</h2>
+        <div class="shows-grid">
+            <div class="show-card"><img src="../media/suz (2).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Suzume','../media/suz (2).jpeg','9.2')">+</button><div class="show-info"><span>Suzume</span><span class="show-rating">⭐ 9.2</span></div></div>
+            <div class="show-card"><img src="../media/suz (10).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Demon Slayer','../media/suz (10).jpeg','8.8')">+</button><div class="show-info"><span>Demon Slayer</span><span class="show-rating">⭐ 8.8</span></div></div>
+            <div class="show-card"><img src="../media/suz (8).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Attack on Titan','../media/suz (8).jpeg','9.0')">+</button><div class="show-info"><span>Attack on Titan</span><span class="show-rating">⭐ 9.0</span></div></div>
+            <div class="show-card"><img src="../media/scoobydoo.jpg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Scooby-DOO','../media/suz (12).jpeg','8.5')">+</button><div class="show-info"><span>Scooby-DOO</span><span class="show-rating">⭐ 8.5</span></div></div>
+            <div class="show-card"><img src="../media/suz (4).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Your Name','../media/suz (4).jpeg','9.1')">+</button><div class="show-info"><span>Your Name</span><span class="show-rating">⭐ 9.1</span></div></div>
+            <div class="show-card"><img src="../media/suz (7).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Naruto','../media/suz (7).jpeg','8.7')">+</button><div class="show-info"><span>Naruto</span><span class="show-rating">⭐ 8.7</span></div></div>
+            <div class="show-card"><img src="../media/suz (5).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Oggy & the Cockroaches','../media/suz (5).jpeg','9.3')">+</button><div class="show-info"><span>Oggy & the Cockroaches</span><span class="show-rating">⭐ 9.3</span></div></div>
+            <div class="show-card"><img src="../media/suz (6).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Dragon-Ball','../media/suz (6).jpeg','8.9')">+</button><div class="show-info"><span>Dragon-Ball</span><span class="show-rating">⭐ 8.9</span></div></div>
+            <div class="show-card"><img src="../media/suz (13).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Barbie','../media/suz (13).jpeg','9.0')">+</button><div class="show-info"><span>Barbie</span><span class="show-rating">⭐ 9.0</span></div></div>
+            <div class="show-card"><img src="../media/suz (11).jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Jujutsu Kaisen','../media/suz (11).jpeg','8.6')">+</button><div class="show-info"><span>Jujutsu Kaisen</span><span class="show-rating">⭐ 8.6</span></div></div>
+            <div class="show-card"><img src="../media/doremon.jpeg"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Doremon','../media/doremon.jpeg','9.2')">+</button><div class="show-info"><span>Doremon</span><span class="show-rating">⭐ 9.2</span></div></div>
+            <div class="show-card"><img src="../media/kid7.JPG"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Ninja Hattori','../media/kid7.JPG','8.8')">+</button><div class="show-info"><span>Ninja Hattori</span><span class="show-rating">⭐ 8.8</span></div></div>
+            <div class="show-card"><img src="../media/kid8.JPG"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Tom & Jerry','../media/kid8.JPG','9.1')">+</button><div class="show-info"><span>Tom & Jerry</span><span class="show-rating">⭐ 9.1</span></div></div>
+            <div class="show-card"><img src="../media/IMG_7729.JPG"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Beauty & the Beast','../media/IMG_7729.JPG','8.7')">+</button><div class="show-info"><span>Beauty & the Beast</span><span class="show-rating">⭐ 8.7</span></div></div>
+            <div class="show-card"><img src="../media/kid1 (4).JPG"><button class="wishlist-plus-btn" onclick="addItemToWishlist('Zootopia','../media/kid1 (4).JPG','9.4')">+</button><div class="show-info"><span>Zootopia</span><span class="show-rating">⭐ 9.4</span></div></div>
+        </div>
+    </section>
+
+    <!-- ══════════ SITE FOOTER ══════════ -->
+<footer class="site-footer">
+ <div class="footer-grid">
+  <div class="footer-brand">
+    <div class="footer-logo">
+        <img src="../MEDIA/logo1.png" class="logof">
+     <span class="flix">FLIX</span> <span>VERSE</span>
+    </div>
+    <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+    <div class="footer-socials">
+    <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+    <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+    </div>
+   </div>
+
+<div class="footer-col">
+ <h4>Browse</h4>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="HTML/movies.html">Movies</a></li>
+                <li><a href="HTML/webseries.html">Web Series</a></li>
+                <li><a href="HTML/tvshow.html">TV Shows</a></li>
+                <li><a href="HTML/wishlist.html">My List</a></li>
+            </ul>
+</div>
+
+<div class="footer-col">
+  <h4>Genres</h4>
+            <ul>
+                <li><a href="#horror-section">Horror</a></li>
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Romance</a></li>
+                <li><a href="#">Thriller</a></li>
+                <li><a href="#">Sci-Fi</a></li>
+            </ul>
+</div>
+
+<div class="footer-col">
+ <h4>Company</h4>
+            <ul>
+                <li><a href="HTML/premium.html">Premium</a></li>
+                <li><a href="HTML/contact.html">Contact Us</a></li>
+                <li><a href="HTML/privacy.html">Privacy Policy</a></li>
+                <li><a href="HTML/terms.html">Terms of Use</a></li>
+                <li><a href="#">Help Center</a></li>
+            </ul>
+</div>
+</div>
+
+<hr class="footer-divider">
+
+<div class="footer-bottom">
+ <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+    <div class="footer-bottom-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="HTML/contact.html">Contact</a>
+    </div>
+</div>
+</footer>
+
+    <script src="../js/kids.js"></script>
+    <script>
+        // Character row scroll
+        document.getElementById('charLeft').addEventListener('click', function() {
+            document.getElementById('charsRow').scrollLeft -= 300;
+        });
+        document.getElementById('charRight').addEventListener('click', function() {
+            document.getElementById('charsRow').scrollLeft += 300;
+        });
+        function toggleKidsAudio() {
+            const vid = document.getElementById('kidsHeroBg');
+            const icon = document.getElementById('kidsAudioIcon');
+            if (vid.muted) {
+                vid.muted = false;
+                vid.volume = 1;
+                vid.play();
+                icon.className = 'fa-solid fa-volume-high';
+            } else {
+                vid.muted = true;
+                icon.className = 'fa-solid fa-volume-xmark';
+            }
+        }
+        // Play Video button
+        document.getElementById('playBannerBtn').addEventListener('click', function() {
+            document.getElementById('videoModal').classList.add('active');
+            document.getElementById('bannerVideo').play();
+        });
+        document.getElementById('closeVideo').addEventListener('click', function() {
+            document.getElementById('videoModal').classList.remove('active');
+            document.getElementById('bannerVideo').pause();
+            document.getElementById('bannerVideo').currentTime = 0;
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('videoModal').classList.remove('active');
+                document.getElementById('bannerVideo').pause();
+            }
+        });
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+        function getWishlist() {
+            return JSON.parse(localStorage.getItem('flixverse_wishlist') || '[]');
+        }
+        function addItemToWishlist(title, thumb, rating) {
+            const list = getWishlist();
+            const exists = list.find(i => i.plainTitle === title);
+            if (exists) { showToast(`"${title}" is already in your list!`); return; }
+            list.push({ plainTitle: title, thumb: thumb, rating: rating });
+            localStorage.setItem('flixverse_wishlist', JSON.stringify(list));
+            showToast(`"${title}" added to My List!`);
+        }
+        function showToast(msg) {
+            let toast = document.getElementById('wl-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'wl-toast';
+                toast.style.cssText = `position:fixed;bottom:30px;left:50%;transform:translateX(-50%);
+                    background:rgba(255,35,145,0.92);color:white;padding:12px 28px;border-radius:30px;
+                    font-size:13px;font-weight:700;z-index:9999;letter-spacing:0.5px;
+                    box-shadow:0 0 20px rgba(255,35,145,0.5);transition:opacity 0.4s;`;
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            toast.style.opacity = '1';
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.style.opacity = '0', 2500);
+        }
+    </script>
+</body>
+</html>

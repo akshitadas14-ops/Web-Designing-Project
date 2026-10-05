@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FLIXVERSE - Web Series</title>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+    <link rel="stylesheet" href="../CSS/stylewebseries.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="webseries-page subpage">
+<!-- ──  HEADER ── -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li id="ws"><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">Wish List</a></li>
+                <li id="tv"><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+<div class="trending-ticker">
+        <span class="ticker-label"><i class="fa-solid fa-fire"></i> TRENDING</span>
+        <div class="ticker-wrap">
+        <div class="ticker-track">
+            <span>Game of Thrones</span><span>•</span>
+            <span>Money Heist</span><span>•</span>
+            <span>Lucifer</span><span>•</span>
+            <span>Mismatched S3</span><span>•</span>
+            <span>Lucifer S7</span><span>•</span>
+            <span>Mismatched S3</span><span>•</span>
+            <span>Game of Thrones</span><span>•</span>
+            <span>Money Heist</span><span>•</span>
+            <span>Lucifer S7</span><span>•</span>
+            <span>Pirates</span>
+        </div>
+        </div>
+    </div>
+
+    <div id="hero-banner" class="banner" style="background-image: linear-gradient(to right, rgba(0,0,0,0.8),transparent),url('../MEDIA/webseries1.JPG');">
+        <div class="content">
+            <h1 id="banner-title">Game of Thrones</h1>
+            <p id="banner-desc">8 Seasons | IMDb 9.2/10</p>
+            <button class="play-btn">&#9654; Play</button>
+        </div>
+    </div>
+
+    <!-- ── THUMBNAILS ── -->
+    <div class="thumbnail-row">
+        <img src="../MEDIA/webseries1.JPG" class="thumb" onclick="updateBanner('Game of Thrones', '8 Seasons | IMDb 9.2/10', '../MEDIA/webseries1.JPG', '../MEDIA/game of t vid.MP4')">
+        <img src="../MEDIA/webseries2.JPG" class="thumb" onclick="updateBanner('Money Heist', '5 Seasons | IMDb 8.2/10', '../MEDIA/webseries2.JPG', '../MEDIA/moneyheistv2.MOV')">
+        <img src="../MEDIA/webseries3.JPG" class="thumb" onclick="updateBanner('Mismatched', '3 Seasons | IMDb 8.5/10', '../MEDIA/webseries3.JPG', '../MEDIA/mismatchv3.MP4')">
+        <img src="../MEDIA/webseries4.JPG" class="thumb" onclick="updateBanner('Lucifer', '6 Seasons | IMDb 8.2/10', '../MEDIA/webseries4.JPG', '../MEDIA/lucifer vid.MP4')">
+        <img src="../MEDIA/pirate.jpeg" class="thumb" onclick="updateBanner('Pirates of Caribbean', '6 Parts | IMDb 8.7/10', '../MEDIA/pirate.jpeg', '../MEDIA/pirate vid.mp4')">
+        <img src="../MEDIA/harry.jpg" class="thumb" onclick="updateBanner('Harry Potter', '8 Parts | IMDb 9.6/10', '../MEDIA/harry.jpg', '../MEDIA/harry potter vid.mp4')">
+    </div>
+
+    <!-- ── VIDEO POPUP ── -->
+    <div id="video-popup" class="video-popup-overlay" onclick="closeVideoPopup(event)">
+        <div class="video-popup-box">
+            <button class="close-popup" onclick="closeVideoPopup()">&#10005;</button>
+            <video id="popup-video" controls>
+                <source id="popup-video-src" src="" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <!-- ── SHARED FOOTER ── -->
+    <footer class="site-footer">
+ <div class="footer-grid">
+  <div class="footer-brand">
+    <div class="footer-logo">
+        <img src="../MEDIA/logo1.png" class="logof">
+     <span class="flix">FLIX</span> <span>VERSE</span>
+    </div>
+    <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+    <div class="footer-socials">
+    <a href="https://www.instagram.com." class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://x.com" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://www.facebook.com" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+    </div>
+   </div>
+<div class="footer-col">
+ <h4>Browse</h4>
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="tvshow.html">TV Shows</a></li>
+                <li><a href="wishlist.html">My List</a></li>
+            </ul>
+</div>
+<div class="footer-col">
+  <h4>Genres</h4>
+            <ul>
+                <li><a href="../Index.html#horror-section">Horror</a></li>
+                <li><a href="movies.html">Action</a></li>
+                <li><a href="movies.html">Romance</a></li>
+                <li><a href="movies.html">Thriller</a></li>
+                <li><a href="movies.html">Sci-Fi</a></li>
+            </ul>
+</div>
+<div class="footer-col">
+ <h4>Company</h4>
+            <ul>
+                <li><a href="premium.html">Premium</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms of Use</a></li>
+                <li><a href="privacy.html">Help Center</a></li>
+            </ul>
+</div>
+</div>
+<hr class="footer-divider">
+<div class="footer-bottom">
+ <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+    <div class="footer-bottom-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="contact.html">Contact</a>
+    </div>
+</div>
+</footer>
+   <script>
+        let currentVideo = '../MEDIA/game of t vid.MP4';
+
+        function updateBanner(title, desc, bgImage, videoSrc) {
+            document.getElementById('banner-title').innerText = title;
+            document.getElementById('banner-desc').innerText = desc;
+            document.getElementById('hero-banner').style.backgroundImage =
+                `linear-gradient(to right, rgba(0,0,0,0.8), transparent), url('${bgImage}')`;
+            currentVideo = videoSrc;
+        }
+
+        document.querySelector('.play-btn').onclick = function () {
+            openVideoPopup(currentVideo);
+        };
+
+        function openVideoPopup(src) {
+            const popup = document.getElementById('video-popup');
+            const video = document.getElementById('popup-video');
+            document.getElementById('popup-video-src').src = src;
+            video.load();
+            video.play();
+            popup.classList.add('active');
+        }
+
+        function closeVideoPopup(e) {
+            if (!e || e.target === document.getElementById('video-popup') || e.target.classList.contains('close-popup')) {
+                document.getElementById('popup-video').pause();
+                document.getElementById('video-popup').classList.remove('active');
+            }
+        }
+
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            const dropdown = document.getElementById('menuDropdown');
+            dropdown.classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

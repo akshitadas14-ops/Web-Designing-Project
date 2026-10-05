@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Terms of Use - FLIXVERSE</title>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: #07000f; color: white; min-height: 100vh; overflow-x: hidden; }
+
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(130px); opacity: 0.15; pointer-events: none; z-index: 0; }
+        .orb1 { width: 600px; height: 600px; background: #2196f3; top: -150px; right: -150px; }
+        .orb2 { width: 500px; height: 500px; background: #ff2391; bottom: -100px; left: -100px; }
+
+        .page-hero {
+            position: relative; z-index: 1;
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .page-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(33,150,243,0.1); border: 1px solid rgba(33,150,243,0.35);
+            border-radius: 20px; padding: 6px 18px;
+            font-size: 11px; font-weight: 700; color: #64b5f6;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px;
+        }
+        .page-hero h1 {
+            font-size: clamp(28px, 4vw, 48px); font-weight: 800;
+            background: linear-gradient(135deg, #fff 30%, #64b5f6 70%, #ff69b4 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 12px;
+        }
+        .page-hero p { color: #777; font-size: 14px; }
+
+        .doc-wrap {
+            position: relative; z-index: 1;
+            max-width: 1100px; margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .doc-section {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 24px 24px 24px 28px;
+            transition: border-color 0.3s;
+            overflow: hidden;
+            word-break: break-word;
+        }
+        .doc-section:hover { border-color: rgba(33,150,243,0.25); }
+
+        .doc-section h2 {
+            font-size: 15px; font-weight: 800;
+            color: #64b5f6; letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .doc-section h2 i { color: #ff69b4; font-size: 14px; }
+
+        .doc-section p, .doc-section li {
+            font-size: 13px; color: #999; line-height: 1.6;
+        }
+        .doc-section ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin-top: 8px;
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .doc-section ul li {
+            font-size: 13px; color: #999; line-height: 1.6;
+            padding-left: 2px;
+            margin-bottom: 6px;
+        }
+        .doc-section ul li::marker { color: #2196f3; font-size: 14px; }
+        .doc-section ul li::before { content: none; }
+
+        .last-updated {
+            text-align: center; color: #444; font-size: 12px;
+            margin-bottom: 36px; letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body class="subpage">
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">WishList</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-hero">
+        <div class="page-badge"><i class="fa-solid fa-file-contract"></i> Legal</div>
+        <h1>Terms of Use</h1>
+        <p>Please read these terms carefully before using FlixVerse</p>
+    </div>
+
+    <div class="doc-wrap">
+        <p class="last-updated">Last updated: March 21, 2026</p>
+
+        <div class="doc-grid">
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-handshake"></i> Acceptance of Terms</h2>
+            <p>By using FlixVerse, you agree to these Terms of Use and our Privacy Policy. We may update these terms at any time — continued use means you accept the changes.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-user"></i> Account Registration</h2>
+            <ul>
+                <li>Must be at least 13 years old to register.</li>
+                <li>Keep your credentials confidential.</li>
+                <li>Provide accurate information during sign-up.</li>
+                <li>You're responsible for all activity on your account.</li>
+                <li>Report any unauthorised access immediately.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-play-circle"></i> Use of the Service</h2>
+            <ul>
+                <li>Copy or redistribute any content without permission.</li>
+                <li>Use the platform for unlawful purposes.</li>
+                <li>Hack, reverse-engineer, or disrupt the service.</li>
+                <li>Share credentials outside your household.</li>
+                <li>Use bots or automated scrapers.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-crown"></i> Subscription & Payments</h2>
+            <ul>
+                <li>Billed monthly unless cancelled before renewal.</li>
+                <li>Payments are non-refundable except by law.</li>
+                <li>Price changes notified 30 days in advance.</li>
+                <li>Cancel anytime from account settings.</li>
+                <li>Access continues till end of billing period.</li>
+            </ul>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-copyright"></i> Intellectual Property</h2>
+            <p>All content — movies, series, logos, and software — belongs to FlixVerse or its licensors. You may not reproduce or distribute any content without written permission.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-triangle-exclamation"></i> Disclaimer of Warranties</h2>
+            <p>FlixVerse is provided "as is" without warranties of any kind. We don't guarantee uninterrupted or error-free service. Use is at your own risk.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-scale-balanced"></i> Limitation of Liability</h2>
+            <p>FlixVerse is not liable for any indirect, incidental, or consequential damages arising from your use of the platform, to the fullest extent permitted by law.</p>
+        </div>
+
+        <div class="doc-section">
+            <h2><i class="fa-solid fa-ban"></i> Termination</h2>
+            <p>We may suspend or terminate your account at any time for violations or fraudulent activity. Upon termination, your access ends immediately.</p>
+        </div>
+
+        </div><!-- end doc-grid -->
+
+        <div class="doc-section" style="margin-top:20px;">
+            <h2><i class="fa-solid fa-envelope"></i> Contact Us</h2>
+            <p>If you have any questions about these Terms of Use, please contact us at <a href="contact.html" style="color:#64b5f6;text-decoration:none;">our contact page</a> or email us at <span style="color:#ff69b4;">legal@flixverse.com</span>.</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="../MEDIA/logo1.png" class="logof">
+                    <span class="flix">FLIX</span> <span>VERSE</span>
+                </div>
+                <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://x.com" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.youtube.com" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.facebook.com" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="webseries.html">Web Series</a></li>
+                    <li><a href="tvshow.html">TV Shows</a></li>
+                    <li><a href="wishlist.html">My List</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="premium.html">Premium</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Help Center</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

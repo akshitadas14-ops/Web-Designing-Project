@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - FLIXVERSE</title>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: #07000f; color: white; min-height: 100vh; overflow-x: hidden; }
+
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.18; pointer-events: none; z-index: 0; }
+        .orb1 { width: 600px; height: 600px; background: #ff2391; top: -150px; left: -150px; }
+        .orb2 { width: 500px; height: 500px; background: #2196f3; bottom: -100px; right: -100px; }
+
+        .pay-wrap {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 32px;
+            padding: 50px 40px 80px;
+            flex-wrap: wrap;
+        }
+
+        /* ── Order Summary ── */
+        .order-summary {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,35,145,0.25);
+            border-radius: 18px;
+            padding: 32px 28px;
+            width: 300px;
+            flex-shrink: 0;
+        }
+        .order-summary h3 {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ff69b4;
+            margin-bottom: 22px;
+        }
+        .plan-badge {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255,35,145,0.08);
+            border: 1px solid rgba(255,35,145,0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 22px;
+        }
+        .plan-badge .plan-icon { font-size: 26px; }
+        .plan-badge .plan-icon.basic  { color: #2196f3; }
+        .plan-badge .plan-icon.std    { color: #ff69b4; }
+        .plan-badge .plan-icon.ultra  { color: #ffd700; }
+        .plan-badge .plan-name { font-size: 18px; font-weight: 800; }
+        .plan-badge .plan-sub  { font-size: 12px; color: #888; margin-top: 2px; }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #aaa;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .summary-row.total {
+            border-bottom: none;
+            margin-top: 8px;
+            font-size: 16px;
+            font-weight: 800;
+            color: white;
+        }
+        .summary-row.total span:last-child {
+            background: linear-gradient(90deg, #ff2391, #2196f3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .secure-note {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #555;
+        }
+        .secure-note i { color: #2196f3; }
+
+        /* ── Payment Form ── */
+        .pay-form {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(33,150,243,0.2);
+            border-radius: 18px;
+            padding: 36px 32px;
+            width: 460px;
+            flex-shrink: 0;
+        }
+        .pay-form h2 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .pay-form .subtitle {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 28px;
+        }
+
+        /* Payment method tabs */
+        .pay-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .pay-tab {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: #888;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+        .pay-tab i { font-size: 18px; }
+        .pay-tab.active {
+            border-color: #ff2391;
+            background: rgba(255,35,145,0.1);
+            color: white;
+            box-shadow: 0 0 12px rgba(255,35,145,0.25);
+        }
+        .pay-tab:hover:not(.active) { border-color: rgba(255,255,255,0.25); color: #ccc; }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-family: 'Outfit', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #ff2391;
+            box-shadow: 0 0 10px rgba(255,35,145,0.2);
+        }
+        .form-group select option { background: #07000f; }
+        .form-row { display: flex; gap: 14px; }
+        .form-row .form-group { flex: 1; }
+
+        /* Card number with icon */
+        .card-input-wrap { position: relative; }
+        .card-input-wrap input { padding-right: 50px; }
+        .card-brand {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #555;
+        }
+
+        /* UPI panel */
+        .upi-options { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+        .upi-app {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: #aaa;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+        .upi-app i { display: block; font-size: 22px; margin-bottom: 6px; }
+        .upi-app:hover, .upi-app.selected {
+            border-color: #ff2391;
+            background: rgba(255,35,145,0.1);
+            color: white;
+        }
+
+        /* Netbanking */
+        .bank-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+        .bank-btn {
+            padding: 12px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: #aaa;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+        .bank-btn:hover, .bank-btn.selected {
+            border-color: #2196f3;
+            background: rgba(33,150,243,0.1);
+            color: white;
+        }
+
+        .pay-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #ff2391, #2196f3);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            font-family: 'Outfit', sans-serif;
+        }
+        .pay-btn:hover {
+            box-shadow: 0 0 24px #ff2391, 0 0 24px #2196f3;
+            transform: scale(1.02);
+        }
+
+        /* ── Success Modal ── */
+        #successModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(6,0,16,0.92);
+            backdrop-filter: blur(14px);
+            align-items: center;
+            justify-content: center;
+        }
+        #successModal.show { display: flex; }
+        .success-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,35,145,0.4);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 0 60px rgba(255,35,145,0.25);
+        }
+        .success-icon {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff2391, #2196f3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 30px rgba(255,35,145,0.5);
+        }
+        .success-box h2 { font-size: 24px; margin-bottom: 10px; }
+        .success-box p { color: #888; font-size: 14px; line-height: 1.6; margin-bottom: 28px; }
+        .success-plan-name { color: #ff69b4; font-weight: 800; }
+        .success-btn {
+            background: linear-gradient(90deg, #ff2391, #2196f3);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            padding: 12px 32px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: box-shadow 0.2s;
+        }
+        .success-btn:hover { box-shadow: 0 0 20px #ff2391; }
+    </style>
+</head>
+<body class="subpage">
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">My List</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="pay-wrap">
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h3><i class="fa-solid fa-receipt"></i> &nbsp;Order Summary</h3>
+            <div class="plan-badge">
+                <div class="plan-icon" id="summaryIcon"><i class="fa-solid fa-star"></i></div>
+                <div>
+                    <div class="plan-name" id="summaryName">Standard</div>
+                    <div class="plan-sub">Monthly subscription</div>
+                </div>
+            </div>
+            <div class="summary-row"><span>Plan</span><span id="summaryPlan">Standard</span></div>
+            <div class="summary-row"><span>Billing</span><span>Monthly</span></div>
+            <div class="summary-row"><span>Subtotal</span><span id="summarySubtotal">₹349</span></div>
+            <div class="summary-row"><span>GST (18%)</span><span id="summaryGst">₹62.82</span></div>
+            <div class="summary-row total"><span>Total</span><span id="summaryTotal">₹411.82</span></div>
+            <div class="secure-note"><i class="fa-solid fa-lock"></i> Secured by 256-bit SSL encryption</div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="pay-form">
+            <h2>Complete Payment</h2>
+            <p class="subtitle">Choose your preferred payment method</p>
+
+            <div class="pay-tabs">
+                <button class="pay-tab active" onclick="switchTab('card', this)">
+                    <i class="fa-solid fa-credit-card"></i> Card
+                </button>
+                <button class="pay-tab" onclick="switchTab('upi', this)">
+                    <i class="fa-solid fa-mobile-screen"></i> UPI
+                </button>
+                <button class="pay-tab" onclick="switchTab('netbanking', this)">
+                    <i class="fa-solid fa-building-columns"></i> Net Banking
+                </button>
+                <button class="pay-tab" onclick="switchTab('wallet', this)">
+                    <i class="fa-solid fa-wallet"></i> Wallet
+                </button>
+            </div>
+
+            <!-- Card Panel -->
+            <div class="tab-panel active" id="panel-card">
+                <div class="form-group">
+                    <label>Card Number</label>
+                    <div class="card-input-wrap">
+                        <input type="text" id="cardNumber" placeholder="1234  5678  9012  3456" maxlength="19" oninput="formatCard(this)">
+                        <i class="fa-brands fa-cc-visa card-brand" id="cardBrandIcon"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Cardholder Name</label>
+                    <input type="text" placeholder="Name on card">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="text" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)">
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="password" placeholder="•••" maxlength="3">
+                    </div>
+                </div>
+            </div>
+
+            <!-- UPI Panel -->
+            <div class="tab-panel" id="panel-upi">
+                <div class="upi-options">
+                    <button class="upi-app" onclick="selectUpi(this)"><i class="fa-solid fa-g"></i>GPay</button>
+                    <button class="upi-app" onclick="selectUpi(this)"><i class="fa-solid fa-p"></i>PhonePe</button>
+                    <button class="upi-app" onclick="selectUpi(this)"><i class="fa-solid fa-b"></i>BHIM</button>
+                    <button class="upi-app" onclick="selectUpi(this)"><i class="fa-solid fa-paypal"></i>Paytm</button>
+                </div>
+                <div class="form-group">
+                    <label>UPI ID</label>
+                    <input type="text" placeholder="yourname@upi">
+                </div>
+            </div>
+
+            <!-- Net Banking Panel -->
+            <div class="tab-panel" id="panel-netbanking">
+                <div class="bank-grid">
+                    <button class="bank-btn" onclick="selectBank(this)">SBI</button>
+                    <button class="bank-btn" onclick="selectBank(this)">HDFC</button>
+                    <button class="bank-btn" onclick="selectBank(this)">ICICI</button>
+                    <button class="bank-btn" onclick="selectBank(this)">Axis</button>
+                    <button class="bank-btn" onclick="selectBank(this)">Kotak</button>
+                    <button class="bank-btn" onclick="selectBank(this)">PNB</button>
+                </div>
+                <div class="form-group">
+                    <label>Or select your bank</label>
+                    <select>
+                        <option value="">-- Choose Bank --</option>
+                        <option>State Bank of India</option>
+                        <option>HDFC Bank</option>
+                        <option>ICICI Bank</option>
+                        <option>Axis Bank</option>
+                        <option>Kotak Mahindra Bank</option>
+                        <option>Bank of Baroda</option>
+                        <option>Canara Bank</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Wallet Panel -->
+            <div class="tab-panel" id="panel-wallet">
+                <div class="upi-options">
+                    <button class="upi-app" onclick="selectUpi(this)"><i class="fa-solid fa-wallet"></i>Paytm</button>
+                    <button class="upi-app" onclick="selectUpi(this)"><i class="fa-solid fa-money-bill"></i>Mobikwik</button>
+                    <button class="upi-app" onclick="selectUpi(this)"><i class="fa-solid fa-coins"></i>Freecharge</button>
+                </div>
+                <div class="form-group">
+                    <label>Registered Mobile Number</label>
+                    <input type="text" placeholder="+91 XXXXX XXXXX" maxlength="14">
+                </div>
+            </div>
+
+            <button class="pay-btn" onclick="processPayment()">
+                <i class="fa-solid fa-lock"></i> &nbsp;Pay <span id="payBtnAmount">₹411.82</span> Securely
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal">
+        <div class="success-box">
+            <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+            <h2>Payment Successful!</h2>
+            <p>Welcome to FlixVerse <span class="success-plan-name" id="successPlanName">Standard</span>!<br>Your subscription is now active. Enjoy unlimited streaming.</p>
+            <button class="success-btn" onclick="window.location.href='../Index.html'">
+                <i class="fa-solid fa-play"></i> &nbsp;Start Watching
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="../MEDIA/logo1.png" class="logof" style="position:absolute;top:0;left:105px;">
+                    <span class="flix">FLIX</span> <span>VERSE</span>
+                </div>
+                <p>Your ultimate streaming destination — all in one place.</p>
+                <div class="footer-socials">
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="premium.html">Premium</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Plans</h4>
+                <ul>
+                    <li><a href="premium.html">Basic – ₹149/mo</a></li>
+                    <li><a href="premium.html">Standard – ₹349/mo</a></li>
+                    <li><a href="premium.html">Ultra – ₹649/mo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Plan data
+        const plans = {
+            basic:    { name: 'Basic',    price: 149,  icon: 'fa-play',  iconClass: 'basic' },
+            standard: { name: 'Standard', price: 349,  icon: 'fa-star',  iconClass: 'std'   },
+            ultra:    { name: 'Ultra',    price: 649,  icon: 'fa-crown', iconClass: 'ultra'  }
+        };
+
+        // Load plan from URL param
+        const params = new URLSearchParams(window.location.search);
+        const planKey = params.get('plan') || 'standard';
+        const plan = plans[planKey] || plans.standard;
+
+        const gst = +(plan.price * 0.18).toFixed(2);
+        const total = +(plan.price + gst).toFixed(2);
+
+        document.getElementById('summaryIcon').innerHTML = `<i class="fa-solid ${plan.icon}"></i>`;
+        document.getElementById('summaryIcon').className = `plan-icon ${plan.iconClass}`;
+        document.getElementById('summaryName').textContent = plan.name;
+        document.getElementById('summaryPlan').textContent = plan.name;
+        document.getElementById('summarySubtotal').textContent = `₹${plan.price}`;
+        document.getElementById('summaryGst').textContent = `₹${gst}`;
+        document.getElementById('summaryTotal').textContent = `₹${total}`;
+        document.getElementById('payBtnAmount').textContent = `₹${total}`;
+        document.getElementById('successPlanName').textContent = plan.name;
+
+        // Tab switching
+        function switchTab(name, btn) {
+            document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-' + name).classList.add('active');
+        }
+
+        // UPI / bank selection
+        function selectUpi(el) {
+            el.closest('.upi-options, .upi-options').querySelectorAll('.upi-app').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+        function selectBank(el) {
+            el.closest('.bank-grid').querySelectorAll('.bank-btn').forEach(b => b.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        // Card number formatting
+        function formatCard(input) {
+            let v = input.value.replace(/\D/g, '').substring(0, 16);
+            input.value = v.replace(/(.{4})/g, '$1  ').trim();
+            const icon = document.getElementById('cardBrandIcon');
+            if (v.startsWith('4')) icon.className = 'fa-brands fa-cc-visa card-brand';
+            else if (v.startsWith('5')) icon.className = 'fa-brands fa-cc-mastercard card-brand';
+            else if (v.startsWith('3')) icon.className = 'fa-brands fa-cc-amex card-brand';
+            else icon.className = 'fa-solid fa-credit-card card-brand';
+        }
+        function formatExpiry(input) {
+            let v = input.value.replace(/\D/g, '').substring(0, 4);
+            if (v.length >= 2) v = v.substring(0, 2) + ' / ' + v.substring(2);
+            input.value = v;
+        }
+
+        // Payment processing
+        function processPayment() {
+            const btn = document.querySelector('.pay-btn');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> &nbsp;Processing...';
+            btn.disabled = true;
+            setTimeout(() => {
+                document.getElementById('successModal').classList.add('show');
+            }, 2000);
+        }
+
+        // Header JS
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>

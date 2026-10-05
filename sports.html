@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sports - FLIXVERSE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #060010;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: sticky; top: 0; z-index: 100;
+            display: flex; align-items: center;
+            padding: 0 60px; height: 62px;
+            background: rgba(6,0,16,0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(33,150,243,0.25);
+            gap: 40px;
+        }
+        .navbar img
+        {
+            position: absolute;
+            left: 5px;
+            bottom: 7px;
+        }
+        .logo { font-size: 24px; font-weight: 800; white-space: nowrap; text-decoration: none; }
+        .logo .flix { text-shadow: #ff2391 0 0 8px, #ff69b4 0 0 16px; color: white; }
+        .logo .verse { color: white; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #aaa; font-size: 14px; font-weight: 600; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: #2196f3; }
+        .back-link { margin-left: auto; color: #aaa; text-decoration: none; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+        .back-link:hover { color: #ff69b4; }
+
+        /* ── TRENDING TICKER ── */
+        .trending-ticker {
+            width: 100%; height: 32px;
+            background: linear-gradient(90deg, rgba(255,35,145,0.12), rgba(33,150,243,0.08));
+            border-bottom: 1px solid rgba(255,35,145,0.2);
+            display: flex; align-items: center; overflow: hidden;
+        }
+        .ticker-label {
+            flex-shrink: 0; color: #ff2391; font-size: 11px; font-weight: 800;
+            letter-spacing: 2px; padding: 0 14px;
+            border-right: 1px solid rgba(255,35,145,0.3);
+            white-space: nowrap; text-transform: uppercase;
+        }
+        .ticker-label i { margin-right: 5px; animation: flicker 1.8s infinite; }
+        @keyframes flicker { 0%,100%{opacity:1} 50%{opacity:0.5} }
+        .ticker-wrap { flex: 1; overflow: hidden; height: 100%; display: flex; align-items: center; }
+        .ticker-track {
+            display: flex; gap: 28px; white-space: nowrap;
+            animation: tickerScroll 26s linear infinite;
+            padding-left: 20px; color: #ccc; font-size: 12px; font-weight: 500;
+        }
+        .ticker-track span:nth-child(even) { color: rgba(255,35,145,0.6); }
+        @keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+        /* ── BANNER SLIDER ── */
+        .banner-slider { position: relative; width: 100%; height: 480px; overflow: hidden; }
+        .banner-slide { display: none; width: 100%; height: 100%; position: relative; }
+        .banner-slide.active { display: block; animation: bannerFade 0.8s ease; }
+        @keyframes bannerFade { from{opacity:0.3} to{opacity:1} }
+        .banner-slide img {
+            width: 100%; height: 100%; object-fit: cover;
+            /* filter: brightness(0.55); */
+        }
+        .banner-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to right, rgba(6,0,16,0.85) 0%, rgba(6,0,16,0.3) 60%, transparent 100%);
+            display: flex; align-items: center; padding: 0 80px;
+        }
+        .banner-content { max-width: 520px; }
+        .banner-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,35,145,0.15); border: 1px solid rgba(255,35,145,0.4);
+            border-radius: 20px; padding: 4px 14px; font-size: 10px;
+            font-weight: 800; color: #ff69b4; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 14px;
+        }
+        .banner-content h1 {
+            font-size: clamp(28px, 4vw, 52px); font-weight: 800;
+            background: linear-gradient(135deg, #fff 20%, #64b5f6 55%, #ff69b4 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 12px; line-height: 1.1;
+        }
+        .banner-content p { color: #aaa; font-size: 14px; line-height: 1.6; margin-bottom: 22px; max-width: 420px; }
+        .banner-meta { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+        .banner-meta span { font-size: 12px; color: #888; font-weight: 600; }
+        .banner-meta .rating { color: #ffd700; }
+        .banner-btns { display: flex; gap: 12px; }
+        .btn-play {
+            background: linear-gradient(90deg, #ff2391, #2196f3);
+            color: white; border: none; border-radius: 6px;
+            padding: 11px 28px; font-size: 13px; font-weight: 800;
+            cursor: pointer; letter-spacing: 1px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .btn-play:hover { box-shadow: 0 0 18px #ff2391; transform: scale(1.04); }
+        .btn-list {
+            background: rgba(255,255,255,0.1); color: white;
+            border: 1px solid rgba(255,255,255,0.25); border-radius: 6px;
+            padding: 11px 24px; font-size: 13px; font-weight: 800;
+            cursor: pointer; backdrop-filter: blur(8px);
+            transition: background 0.2s;
+        }
+        .btn-list:hover { background: rgba(255,255,255,0.2); }
+
+        /* Banner nav arrows */
+        .banner-prev, .banner-next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.45); backdrop-filter: blur(6px);
+            color: white; border: none; font-size: 18px; font-weight: 800;
+            padding: 14px 16px; cursor: pointer; z-index: 10;
+            transition: background 0.2s; border-radius: 4px;
+        }
+        .banner-prev { left: 0; border-radius: 0 4px 4px 0; }
+        .banner-next { right: 0; border-radius: 4px 0 0 4px; }
+        .banner-prev:hover, .banner-next:hover { background: #ff2391; }
+        .banner-btns a
+        {
+            text-decoration: none;
+            color: white;
+        }
+       /* Banner dots */
+        .banner-dots {
+            position: absolute; bottom: 20px; left: 50%;
+            transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;
+        }
+        .banner-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: rgba(255,255,255,0.3); cursor: pointer;
+            transition: all 0.3s;
+        }
+        .banner-dot.active { background: #ff2391; box-shadow: 0 0 8px #ff2391; transform: scale(1.3); }
+
+        /* ── SPORTS GRID ── */
+        .sports-section { padding: 50px 50px 80px; }
+        .section-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 30px;
+        }
+        .section-header h2 {
+            font-family: Cambria, Arial, sans-serif;
+            font-size: 20px; letter-spacing: 2px; color: white;
+        }
+        .section-header i { color: #ff2391; font-size: 20px; }
+        .sports-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+        .sport-card {
+            position: relative; border-radius: 12px; overflow: hidden;
+            aspect-ratio: 16/9;
+            border: 1px solid rgba(33,150,243,0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .sport-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 0 28px rgba(33,150,243,0.35), 0 0 14px rgba(255,35,145,0.15);
+            border-color: rgba(33,150,243,0.5);
+        }
+        .sport-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.4s, filter 0.3s;
+            filter: brightness(0.8);
+        }
+        .sport-card:hover img { transform: scale(1.07); filter: brightness(1); }
+        .sport-card-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(6,0,16,0.85) 0%, transparent 55%);
+            display: flex; flex-direction: column;
+            justify-content: flex-end; padding: 16px 18px;
+        }
+        .sport-badge {
+            position: absolute; top: 12px; left: 12px;
+            background: linear-gradient(90deg, #ff2391, #2196f3);
+            color: white; font-size: 9px; font-weight: 800;
+            letter-spacing: 1px; padding: 3px 10px;
+            border-radius: 10px; text-transform: uppercase;
+        }
+        .sport-rating {
+            position: absolute; top: 12px; right: 12px;
+            background: rgba(0,0,0,0.65); backdrop-filter: blur(6px);
+            color: #ffd700; font-size: 11px; font-weight: 800;
+            padding: 3px 8px; border-radius: 8px;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .sport-play {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%) scale(0.7);
+            width: 46px; height: 46px; border-radius: 50%;
+            background: rgba(33,150,243,0.85);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; color: white; opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            box-shadow: 0 0 20px #2196f3;
+        }
+        .sport-card:hover .sport-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+        .sport-title { font-size: 14px; font-weight: 700; color: #e0e0e0; margin-bottom: 3px; }
+        .sport-meta { font-size: 11px; color: #2196f3; font-weight: 600; }
+    </style>
+    <link rel="stylesheet" href="../CSS/Styleindex.css">
+</head>
+<body class="subpage">
+
+    <!-- SHARED HEADER -->
+    <div class="box1">
+        <img src="../MEDIA/logo1.png" alt="Logo">
+        <span class="flix">FLIX</span>
+        <span class="verse">VERSE</span>
+        <div class="nav">
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="webseries.html">Web Series</a></li>
+                <li><a href="kids.html">Kids</a></li>
+                <li><a href="wishlist.html">WishList</a></li>
+                <li><a href="tvshow.html">Tv Shows</a></li>
+                <li><a href="sports.html">Sports</a></li>
+            </ul>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle" onclick="toggleSearch()"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search movies.....">
+        </div>
+        <div class="icon">
+            <button class="btn1" onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div class="menuicon" id="menuIcon" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuBarsIcon"></i>
+            <div class="menu-dropdown" id="menuDropdown">
+                <a href="contact.html"><i class="fa-solid fa-phone"></i> Contact Us</a>
+                <a href="aboutus.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+                <a href="../Index.html#reviews-section"><i class="fa-solid fa-star"></i> Review</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRENDING TICKER -->
+    <div class="trending-ticker">
+        <span class="ticker-label"><i class="fa-solid fa-fire"></i> LIVE NOW</span>
+        <div class="ticker-wrap">
+            <div class="ticker-track">
+                <span>F1 Grand Prix 2026</span><span>•</span>
+                <span>IPL Season 19</span><span>•</span>
+                <span>FIFA World Cup Qualifiers</span><span>•</span>
+                <span>Wimbledon 2026</span><span>•</span>
+                <span>NBA Finals</span><span>•</span>
+                <span>UFC 310</span><span>•</span>
+                <span>F1 Grand Prix 2026</span><span>•</span>
+                <span>IPL Season 19</span><span>•</span>
+                <span>FIFA World Cup Qualifiers</span><span>•</span>
+                <span>Wimbledon 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- BANNER SLIDER -->
+    <div class="banner-slider" id="bannerSlider">
+
+        <div class="banner-slide active">
+            <img src="../MEDIA/f1prix.jpeg" alt="F1 Racing">
+            <div class="banner-overlay">
+                <div class="banner-content">
+                    <div class="banner-badge"><i class="fa-solid fa-flag-checkered"></i> Formula 1</div>
+                    <h1>F1 Grand Prix 2026</h1>
+                    <p>Experience the thrill of the fastest motorsport on the planet. Every lap, every overtake, every championship moment — live and on demand.</p>
+                    <div class="banner-meta">
+                        <span class="rating"><i class="fa-solid fa-star"></i> 9.4</span>
+                        <span>2026 Season</span>
+                        <span>16 Races</span>
+                    </div>
+                    <div class="banner-btns">
+                        <button class="btn-play" onclick="openSportVideo('../MEDIA/f1video.mp4')">▶ Watch Now</button>
+                        <button class="btn-list"><a href="../HTML/wishlist.html">+ My List</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="banner-slide">
+            <img src="../MEDIA/ipl2.jpeg" alt="IPL Cricket">
+            <div class="banner-overlay">
+                <div class="banner-content">
+                    <div class="banner-badge"><i class="fa-solid fa-cricket-bat-ball"></i> Cricket</div>
+                    <h1>IPL Season 19</h1>
+                    <p>The biggest cricket league in the world returns. Sixes, wickets, and nail-biting finishes — catch every match live on FlixVerse.</p>
+                    <div class="banner-meta">
+                        <span class="rating"><i class="fa-solid fa-star"></i> 9.1</span>
+                        <span>2026 Edition</span>
+                        <span>74 Matches</span>
+                    </div>
+                    <div class="banner-btns">
+                        <button class="btn-play" onclick="openSportVideo('../MEDIA/iplvideo.mp4')">▶ Watch Now</button>
+                        <button class="btn-list"><a href="../HTML/wishlist.html">+ My List</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner-slide">
+            <img src="../MEDIA/fifawc26.jpeg" alt="Football">
+            <div class="banner-overlay">
+                <div class="banner-content">
+                    <div class="banner-badge"><i class="fa-solid fa-futbol"></i> Football</div>
+                    <h1>FIFA World Cup Qualifiers</h1>
+                    <p>The road to the World Cup is paved with passion. Watch every qualifier match as nations battle for their spot on the grandest stage.</p>
+                    <div class="banner-meta">
+                        <span class="rating"><i class="fa-solid fa-star"></i> 9.5</span>
+                        <span>2026 Qualifiers</span>
+                        <span>200+ Matches</span>
+                    </div>
+                    <div class="banner-btns">
+                        <button class="btn-play" onclick="openSportVideo('../MEDIA/f1vid.mp4')">▶ Watch Now</button>
+                        <button class="btn-list"><a href="../HTML/wishlist.html">+ My List</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="banner-prev" onclick="changeBanner(-1)">&#10094;</button>
+        <button class="banner-next" onclick="changeBanner(1)">&#10095;</button>
+        <div class="banner-dots">
+            <span class="banner-dot active" onclick="goBanner(0)"></span>
+            <span class="banner-dot" onclick="goBanner(1)"></span>
+            <span class="banner-dot" onclick="goBanner(2)"></span>
+        </div>
+    </div>
+
+    <!-- SPORTS GRID -->
+    <div class="sports-section">
+        <div class="section-header">
+            <i class="fa-solid fa-trophy"></i>
+            <h2>ALL SPORTS</h2>
+        </div>
+        <div class="sports-grid">
+
+            <div class="sport-card">
+                <img src="../MEDIA/f1prix.jpeg" alt="Formula 1">
+                <span class="sport-badge">Live</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 9.4</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">Formula 1 — Grand Prix 2025</div>
+                    <div class="sport-meta">Motorsport · Season 2025</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/ipl2.jpeg" alt="IPL Cricket">
+                <span class="sport-badge">Hot</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 9.1</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">IPL Season 19</div>
+                    <div class="sport-meta">Cricket · T20 · 2025</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/qualifi.jpeg" alt="FIFA">
+                <span class="sport-badge">New</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 9.5</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">FIFA World Cup Qualifiers</div>
+                    <div class="sport-meta">Football · International · 2026</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/wimbledon.webp" alt="Wimbledon">
+                <span class="sport-badge">Classic</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 8.9</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">Wimbledon 2026</div>
+                    <div class="sport-meta">Tennis · Grand Slam · 2026</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/nba.jpeg" alt="NBA">
+                <span class="sport-badge">Finals</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 9.2</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">NBA Finals 2026</div>
+                    <div class="sport-meta">Basketball · NBA · 2026</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/ufc.jpg" alt="UFC">
+                <span class="sport-badge">PPV</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 8.7</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">UFC 310 — Championship Night</div>
+                    <div class="sport-meta">MMA · UFC · 2026</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/olmpics.jpeg" alt="Olympics">
+                <span class="sport-badge">Epic</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 9.8</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">Olympics 2028 Highlights</div>
+                    <div class="sport-meta">Multi-Sport · International</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/prokabadi.jpeg" alt="Kabaddi">
+                <span class="sport-badge">Pro</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 8.3</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">Pro Kabaddi League S12</div>
+                    <div class="sport-meta">Kabaddi · PKL · 2026</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/bwf26.jpeg" alt="Badminton">
+                <span class="sport-badge">Live</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 8.5</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">BWF World Championships</div>
+                    <div class="sport-meta">Badminton · International · 2026</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/boxweight.jpeg" alt="Boxing">
+                <span class="sport-badge">PPV</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 8.8</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">World Heavyweight Boxing</div>
+                    <div class="sport-meta">Boxing · WBC · 2026</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/hockey.jpeg" alt="Hockey">
+                <span class="sport-badge">New</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 8.1</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">Hockey World League 2026</div>
+                    <div class="sport-meta">Hockey · International · 2026</div>
+                </div>
+            </div>
+
+            <div class="sport-card">
+                <img src="../MEDIA/wrestle.jpeg" alt="Wrestling">
+                <span class="sport-badge">Top</span>
+                <span class="sport-rating"><i class="fa-solid fa-star"></i> 8.6</span>
+                <div class="sport-card-overlay">
+                    <div class="sport-title">WWE WrestleMania 41</div>
+                    <div class="sport-meta">Wrestling · WWE · 2026</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="../MEDIA/logo1.png" class="logof">
+                    <span class="flix">FLIX</span> <span>VERSE</span>
+                </div>
+                <p>Your ultimate streaming destination for movies, series, TV shows, and exclusive originals — all in one place.</p>
+                <div class="footer-socials">
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Browse</h4>
+                <ul>
+                    <li><a href="../Index.html">Home</a></li>
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="webseries.html">Web Series</a></li>
+                    <li><a href="tvshow.html">TV Shows</a></li>
+                    <li><a href="wishlist.html">My List</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sports</h4>
+                <ul>
+                    <li><a href="#">Formula 1</a></li>
+                    <li><a href="#">Cricket / IPL</a></li>
+                    <li><a href="#">Football</a></li>
+                    <li><a href="#">Tennis</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="premium.html">Premium</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>FlixVerse</span>. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- VIDEO MODAL -->
+    <div id="sportModal" onclick="if(event.target===this)closeSportVideo()" style="
+        display:none; position:fixed; inset:0; z-index:9999;
+        background:rgba(6,0,16,0.95); backdrop-filter:blur(14px);
+        align-items:center; justify-content:center;">
+        <div style="position:relative; width:min(900px,95vw); border-radius:16px; overflow:hidden;
+            box-shadow:0 0 60px rgba(255,35,145,0.3), 0 0 30px rgba(33,150,243,0.2);
+            border:1px solid rgba(255,35,145,0.35);">
+            <!-- close button -->
+            <button onclick="closeSportVideo()" style="
+                position:absolute; top:12px; right:12px; z-index:10;
+                background:rgba(255,35,145,0.9); border:none; color:white;
+                width:40px; height:40px; border-radius:50%; font-size:18px;
+                cursor:pointer; display:flex; align-items:center; justify-content:center;
+                box-shadow:0 0 14px #ff2391; transition:transform 0.2s, background 0.2s;"
+                onmouseover="this.style.transform='scale(1.15)'"
+                onmouseout="this.style.transform='scale(1)'">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <video id="sportVideoPlayer" controls autoplay
+                style="width:100%; display:block; background:#000; max-height:80vh;">
+            </video>
+        </div>
+    </div>
+
+    <script>
+        function openSportVideo(src) {
+            const modal = document.getElementById('sportModal');
+            const player = document.getElementById('sportVideoPlayer');
+            player.src = src;
+            player.load();
+            player.play();
+            modal.style.display = 'flex';
+        }
+        function closeSportVideo() {
+            const modal = document.getElementById('sportModal');
+            const player = document.getElementById('sportVideoPlayer');
+            player.pause();
+            player.src = '';
+            modal.style.display = 'none';
+        }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeSportVideo();
+        });
+    </script>
+
+    <script>
+        function toggleSearch() {
+            const input = document.getElementById('searchInput');
+            input.classList.toggle('open');
+            if (input.classList.contains('open')) input.focus();
+        }
+        function toggleMenu() {
+            document.getElementById('menuDropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', function(e) {
+            const menuIcon = document.getElementById('menuIcon');
+            if (menuIcon && !menuIcon.contains(e.target)) {
+                document.getElementById('menuDropdown').classList.remove('open');
+            }
+        });
+        let bannerIndex = 0;
+        const slides = document.querySelectorAll('.banner-slide');
+        const dots = document.querySelectorAll('.banner-dot');
+
+        function showBanner(n) {
+            bannerIndex = (n + slides.length) % slides.length;
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[bannerIndex].classList.add('active');
+            dots[bannerIndex].classList.add('active');
+        }
+        function changeBanner(dir) { showBanner(bannerIndex + dir); }
+        function goBanner(n) { showBanner(n); }
+
+        setInterval(() => changeBanner(1), 5000);
+    </script>
+</body>
+</html>
