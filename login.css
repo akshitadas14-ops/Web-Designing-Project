@@ -1,0 +1,182 @@
+
+:root {
+    --bg-deep: #260048;
+    --primary-glow: #FF2EA6;
+    --secondary-glow: #00D4FF;
+    --text-main: #FFFFFF;
+    --text-dim: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(2, 11, 26, 0.8);
+    --glass-border: rgba(0, 212, 255, 0.2);
+    --font-main: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+}
+
+body,
+html {
+    height: 100%;
+    top: 20px;
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+}
+
+
+.bg-img {
+    background-image: url("../MEDIA/bg4.jpeg");
+    min-height: calc(100vh - 60px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: none;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(2, 11, 26, 0.4) 0%, var(--bg-deep) 100%);
+    z-index: 1;
+}
+.container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    /* background: var(--glass-bg); */
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px var(--secondary-glow);
+    text-align: center;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 30px var(--primary-glow);
+}
+
+.logo img {
+    transition: all 0.3s ease;
+}
+
+.logo:hover img {
+    filter: drop-shadow(0 0 10px var(--secondary-glow));
+}
+
+.container h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(to right, #fff, var(--secondary-glow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+input[type=text],
+input[type=password] {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--secondary-glow);
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+.btn {
+    background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 800;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    margin-top: 10px;
+    box-shadow: 0 0 20px rgba(255, 46, 166, 0.3);
+}
+
+.btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px var(--primary-glow);
+}
+
+.form-footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+.form-footer a {
+    color: var(--secondary-glow);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+.site-footer {
+ 
+    position: absolute;
+    bottom: 40px;
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+}
